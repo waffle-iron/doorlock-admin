@@ -1,21 +1,30 @@
 import Formsy from 'formsy-react';
 import { Input } from 'formsy-react-components';
-import { Form, HOC } from 'formsy-react'
+import { Form } from 'formsy-react'
 
 import React, { PropTypes } from 'react'
 
 class MemberForm extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      submitDisabled: true
+    }
     this.onSubmit = this.onSubmit.bind(this);
+    this.onValid = this.onValid.bind(this);
+    this.onInvalid = this.onInvalid.bind(this);
   }
 
   onSubmit(model) {
     const { submit } = this.props;
     submit(model);
   }
-  onValid() {}
-  onInvalid() {}
+  onValid() {
+    this.setState({ submitDisabled: false });
+  }
+  onInvalid() {
+    this.setState({ submitDisabled: true });
+  }
   render () {
     const { editMember } = this.props;
 
@@ -110,7 +119,8 @@ class MemberForm extends React.Component {
 
         </fieldset>
 
-        <input type="submit" className="btn btn-primary" formnovalidate={true} value={addEdit} />
+        <input type="submit" className="btn btn-primary" formnovalidate={true}
+          disabled={this.state.submitDisabled} value={addEdit} />
 
       </Form>
     );
