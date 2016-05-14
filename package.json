@@ -28,8 +28,8 @@
     "rimraf": "^2.4.3",
     "webpack": "^1.13.0",
     "webpack-dev-middleware": "^1.4.0",
-    "webpack-hot-middleware": "^2.6.0"
-	"@kadira/storybook": "^1.26.0"
+    "webpack-hot-middleware": "^2.6.0",
+	  "@kadira/storybook": "^1.26.0"
   },
   "dependencies": {
     "alt": "^0.18.2",

@@ -7,7 +7,7 @@ import App from './components/App.jsx'
 export default () => {
   return (
     <Router history={browserHistory}>
-      <Route path='/' component={App}>
+      <Route path='/' component={App}/>
     </Router>
   );
 }
