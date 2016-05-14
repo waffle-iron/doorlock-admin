@@ -86,7 +86,7 @@ class MemberForm extends React.Component {
             validationErrors={{
               isAlphanumeric: 'Kun bokstaver og tall er godtatt'
             }}
-            placeholder="Medlemmets brukernavn"
+            placeholder="Medlemmets brukernavn på UIT"
             required
             />
 
