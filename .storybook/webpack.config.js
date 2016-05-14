@@ -7,10 +7,10 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.css?$/,
-        loaders: [ 'style', 'raw' ],
-        include: path.resolve(__dirname, '../')
-      }
+    	  test: /\.css$/,
+    	  loader: 'style-loader!css-loader'
+      },
+      { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
     ]
   }
 }
