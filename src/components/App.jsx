@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import NavBar from './navbar/NavBar.jsx';
-
+import { Grid } from 'react-bootstrap';
 
 export default class App extends Component {
   render() {
     return (
       <div>
         <NavBar />
-        {this.props.children}
+        <Grid>
+          {this.props.children}
+        </Grid>
       </div>
     );
   }
