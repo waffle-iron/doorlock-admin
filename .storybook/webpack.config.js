@@ -1,10 +1,16 @@
 const path = require('path');
 
+var nodeRoot = path.join( __dirname, '../', 'node_modules' );
+
 module.exports = {
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
+    alias: {
+        'socket.io-client': path.join( nodeRoot, 'socket.io-client', 'socket.io.js' )
+    }
   },
   module: {
+    noParse: [ /socket.io-client/ ],
     loaders: [
       {
     	  test: /\.css$/,

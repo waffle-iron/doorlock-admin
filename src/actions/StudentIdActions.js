@@ -11,6 +11,7 @@ class StudentIdActions {
     return newId;
   }
   scanCardError(err) {
+    debugger;
     return err;
   }
 }

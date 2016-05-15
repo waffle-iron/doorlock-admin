@@ -1,6 +1,8 @@
 var path = require('path');
 var webpack = require('webpack');
 
+var nodeRoot = path.join( __dirname, 'node_modules' );
+
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
@@ -17,7 +19,13 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
+  resolve: {
+    alias: {
+        'socket.io-client': path.join( nodeRoot, 'socket.io-client', 'socket.io.js' )
+    }
+  },
   module: {
+    noParse: [ /socket.io-client/ ],
     loaders: [{
       test: /\.jsx?/,
       loaders: ['babel'],
