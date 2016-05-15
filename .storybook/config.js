@@ -1,6 +1,6 @@
 import { configure } from '@kadira/storybook';
 
-import '../static/css/paper.bootstrap.min.css';
+import '!style-loader!css-loader!../static/css/paper.bootstrap.min.css';
 
 import { disable } from 'react-komposer';
 
