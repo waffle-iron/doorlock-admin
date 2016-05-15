@@ -18,7 +18,8 @@ storiesOf('Member.Form', module)
         lastName: 'Nylund',
         userName: 'ony008',
         privateEmail: 'ole@gmail.com',
-        mobile: '48222233'
+        mobile: '48222233',
+        studentCardId: 'e32423424'
       }
     }
 

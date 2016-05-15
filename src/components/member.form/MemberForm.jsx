@@ -1,8 +1,13 @@
+import React, { PropTypes } from 'react';
 import Formsy from 'formsy-react';
 import { Input } from 'formsy-react-components';
-import { Form } from 'formsy-react'
+import { Form } from 'formsy-react';
 
-import React, { PropTypes } from 'react'
+import AltContainer from 'alt-container';
+import StudentIdStore from '../../stores/StudentIdStore';
+import StudentIdActions from '../../actions/StudentIdActions';
+
+import AddStudentCardId from '../member.addid/AddStudentCardId.jsx';
 
 class MemberForm extends React.Component {
   constructor(props) {
@@ -14,7 +19,15 @@ class MemberForm extends React.Component {
     this.onValid = this.onValid.bind(this);
     this.onInvalid = this.onInvalid.bind(this);
   }
-
+  componentWillMount() {
+    const { editMember } = this.props;
+    if( editMember ) {
+      StudentIdActions.setStudentId( editMember.studentCardId );
+    }
+    else {
+      StudentIdActions.setStudentId('');
+    }
+  }
   onSubmit(model) {
     const { submit } = this.props;
     submit(model);
@@ -35,7 +48,8 @@ class MemberForm extends React.Component {
         lastName: editMember ? editMember.lastName : '',
         userName: editMember ? editMember.userName : '',
         privateEmail: editMember ? editMember.privateEmail : '',
-        mobile: editMember ? editMember.mobile : ''
+        mobile: editMember ? editMember.mobile : '',
+        studentCardId: editMember ? editMember.studentCardId : ''
     }
 
     const header = `${addEdit} medlem`;
@@ -116,6 +130,10 @@ class MemberForm extends React.Component {
               isLength: 'Krever 8 siffer'
             }}
             />
+
+          <AltContainer store={StudentIdStore} actions={{ actions: StudentIdActions }} >
+            <AddStudentCardId />
+          </AltContainer>
 
         </fieldset>
 
