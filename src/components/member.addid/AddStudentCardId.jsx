@@ -6,7 +6,6 @@ import styles from './AddStudentCardId-style.css';
 
 const AddStudentCardId = ({ actions, studId, isLoading }) => {
   const btnTxt = studId ? 'Scan nytt kort' : 'Scan kort';
-  console.log(isLoading);
   return (
     <div className='form-group row'>
       <label className='control-label col-sm-3'>Studentkortid</label>

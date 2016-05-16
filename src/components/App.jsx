@@ -4,9 +4,10 @@ import { Grid } from 'react-bootstrap';
 
 export default class App extends Component {
   render() {
+    const location = this.props.location.pathname;
     return (
       <div>
-        <NavBar />
+        { location !== '/logg-inn' ? <NavBar /> : '' }
         <Grid>
           {this.props.children}
         </Grid>
