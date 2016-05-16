@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NavBar from './navbar/NavBar.jsx';
+import NotificationStack from './notifications/NotificationStack.jsx';
 import { Grid } from 'react-bootstrap';
 
 export default class App extends Component {
@@ -11,6 +12,7 @@ export default class App extends Component {
         <Grid>
           {this.props.children}
         </Grid>
+        <NotificationStack />
       </div>
     );
   }
