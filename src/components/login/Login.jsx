@@ -80,10 +80,6 @@ class Login extends React.Component {
                 value=''
                 type='text'
                 label='Brukernavn'
-                validations="isAlpha"
-                validationErrors={{
-                  isAlpha: 'Kun bokstaver er godtatt'
-                }}
                 placeholder='Brukernavn'
                 required
                 />
