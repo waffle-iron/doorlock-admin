@@ -13,7 +13,7 @@ const StudentIdSource = {
           });
         }, 12000);
 
-        let socket = io('http://doorlock:8080');
+        let socket = io('http://192.168.0.112:8080');
         socket.on('connect', function () {
           socket.emit('scanNewId', function (id) {
             if(id) {

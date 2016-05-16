@@ -7,7 +7,7 @@ import MemberForm from '../member.form/MemberForm.jsx';
 
 class AddPage extends React.Component {
   onAddMember(newMember,resetForm,invalidate) {
-    axios.post('http://doorlock/api/user/add', newMember, {
+    axios.post('http://192.168.0.112/api/user/add', newMember, {
       headers: {
         'x-access-token': localStorage.token
       }
