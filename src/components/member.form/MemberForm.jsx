@@ -20,12 +20,12 @@ class MemberForm extends React.Component {
     this.onInvalid = this.onInvalid.bind(this);
   }
   componentWillMount() {
-    const { editMember } = this.props;
+    const { editMember, actions } = this.props;
     if( editMember ) {
-      StudentIdActions.setStudentId( editMember.studentCardId );
+      actions.setStudentId( editMember.studentCardId );
     }
     else {
-      StudentIdActions.setStudentId('');
+      actions.setStudentId('');
     }
   }
   onSubmit(model,reset,invalidate) {
@@ -39,7 +39,7 @@ class MemberForm extends React.Component {
     this.setState({ submitDisabled: true });
   }
   render () {
-    const { editMember } = this.props;
+    const { editMember, ...idProps } = this.props;
 
     const addEdit = editMember ? 'Endre' : 'Legg til';
 
@@ -131,9 +131,7 @@ class MemberForm extends React.Component {
             }}
             />
 
-          <AltContainer store={StudentIdStore} actions={{ actions: StudentIdActions }} >
-            <AddStudentCardId />
-          </AltContainer>
+          <AddStudentCardId {...idProps} />
 
         </fieldset>
 
@@ -145,4 +143,12 @@ class MemberForm extends React.Component {
   }
 }
 
-export default MemberForm;
+const storeConnect = (props) => {
+  return (
+    <AltContainer store={StudentIdStore} actions={{ actions: StudentIdActions }} >
+      <MemberForm {...props} />
+    </AltContainer>
+  );
+}
+
+export default storeConnect;

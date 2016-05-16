@@ -21,6 +21,3 @@ const AddStudentCardId = ({ actions, studId, isLoading }) => {
 }
 
 export default AddStudentCardId;
-
-// TODO: Bug when trying to scan new card twice without changing the other fields.
-// No "waiting for scanning..." or any rerender occurs then. Mystical.
