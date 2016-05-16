@@ -7,7 +7,7 @@ module.exports = {
       this.onChange(true);
       return;
     }
-    axios.post('http://doorlock/api/authenticate', loginObj)
+    axios.post('http://192.168.0.112/api/authenticate', loginObj)
     .then( (response) => {
       if( response.data.success ) {
         localStorage.token = response.data.token;
@@ -19,7 +19,7 @@ module.exports = {
       }
     })
     .catch( (error) => {
-      const msg = error.hasOwnProperty('<data>') ? error.data.message : error.message;
+      const msg = error.hasOwnProperty('data') ? error.data.message : error.message;
       if(callback) callback(msg);
       this.onChange(false);
     });
