@@ -9,6 +9,8 @@ import StudentIdActions from '../../actions/StudentIdActions';
 
 import AddStudentCardId from '../member.addid/AddStudentCardId.jsx';
 
+import styles from './MemberForm-style.css';
+
 class MemberForm extends React.Component {
   constructor(props) {
     super(props);
@@ -59,6 +61,7 @@ class MemberForm extends React.Component {
         onValidSubmit={this.onSubmit}
         onValid={this.onValid}
         onInvalid={this.onInvalid}
+        className={styles.form}
       >
         <fieldset>
           <legend>{header}</legend>
@@ -134,9 +137,11 @@ class MemberForm extends React.Component {
           <AddStudentCardId {...idProps} />
 
         </fieldset>
-
-        <input type="submit" className="btn btn-primary" formnovalidate={true}
-          disabled={this.state.submitDisabled} value={addEdit} />
+        
+        <div className={styles.btnBox}>
+          <input type="submit" className="btn btn-primary" formnovalidate={true}
+            disabled={this.state.submitDisabled} value={addEdit} />
+        </div>
 
       </Form>
     );
