@@ -7,10 +7,25 @@ const StudentIdSource = {
     remote() {
       return new Promise( (resolve, reject) => {
 
-        var socket = io('http://doorlock:8080');
+        let serverTimeout = window.setTimeout( () => {
+          reject({
+            message: 'Serveren svarer ikke'
+          });
+        }, 12000);
+
+        let socket = io('http://doorlock:8080');
         socket.on('connect', function () {
           socket.emit('scanNewId', function (id) {
-            resolve(id);
+            if(id) {
+              window.clearTimeout(serverTimeout);
+              resolve(id);
+            }
+            else {
+              window.clearTimeout(serverTimeout);
+              reject({
+                message: 'Scanning feilet, prøv på nytt'
+              });
+            }
           });
         });
 

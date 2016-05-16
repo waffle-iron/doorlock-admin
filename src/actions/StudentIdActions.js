@@ -1,4 +1,5 @@
-import alt from '../alt'
+import alt from '../alt';
+import NotificationActions from './NotificationActions';
 
 class StudentIdActions {
   setStudentId(id) {
@@ -11,7 +12,10 @@ class StudentIdActions {
     return newId;
   }
   scanCardError(err) {
-    debugger;
+    NotificationActions.error({
+      title: 'Scanning av kort',
+      message: err.message
+    });
     return err;
   }
 }

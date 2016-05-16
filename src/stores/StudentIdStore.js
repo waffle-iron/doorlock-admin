@@ -18,6 +18,9 @@ class StudentIdStore {
     }
     this.isLoading = false;
   }
+  onScanCardError(err) {
+    this.isLoading = false;
+  }
   onScanCard() {
     this.isLoading = true;
     if (!this.getInstance().isLoading()) {
