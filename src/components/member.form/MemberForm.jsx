@@ -28,9 +28,9 @@ class MemberForm extends React.Component {
       StudentIdActions.setStudentId('');
     }
   }
-  onSubmit(model) {
+  onSubmit(model,reset,invalidate) {
     const { submit } = this.props;
-    submit(model);
+    submit(model,reset,invalidate);
   }
   onValid() {
     this.setState({ submitDisabled: false });
