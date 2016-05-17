@@ -3,10 +3,6 @@ import Formsy from 'formsy-react';
 import { Input } from 'formsy-react-components';
 import { Form } from 'formsy-react';
 
-import AltContainer from 'alt-container';
-import StudentIdStore from '../../stores/StudentIdStore';
-import StudentIdActions from '../../actions/StudentIdActions';
-
 import AddStudentCardId from '../member.addid/AddStudentCardId.jsx';
 
 import styles from './MemberForm-style.css';
@@ -21,15 +17,6 @@ class MemberForm extends React.Component {
     this.onValid = this.onValid.bind(this);
     this.onInvalid = this.onInvalid.bind(this);
   }
-  componentWillMount() {
-    const { editMember, actions } = this.props;
-    if( editMember ) {
-      actions.setStudentId( editMember.studentCardId );
-    }
-    else {
-      actions.setStudentId('');
-    }
-  }
   onSubmit(model,reset,invalidate) {
     const { submit } = this.props;
     submit(model,reset,invalidate);
@@ -40,21 +27,24 @@ class MemberForm extends React.Component {
   onInvalid() {
     this.setState({ submitDisabled: true });
   }
+  renderLoadingScreen() {
+    return (
+      <div className={styles.loadingBox}><i className='fa fa-cog fa-spin fa-5x fa-fw'></i></div>
+    );
+  }
   render () {
-    const { editMember, ...idProps } = this.props;
+    const { defaultValues, changeMode, memberDontExist } = this.props;
+    const { isLoading, failedId } = this.props;
+    const { studentIdProps, actions } = this.props;
 
-    const addEdit = editMember ? 'Endre' : 'Legg til';
-
-    const defaultValues = {
-        firstName: editMember ? editMember.firstName : '',
-        lastName: editMember ? editMember.lastName : '',
-        userName: editMember ? editMember.userName : '',
-        privateEmail: editMember ? editMember.privateEmail : '',
-        mobile: editMember ? editMember.mobile : '',
-        studentCardId: editMember ? editMember.studentCardId : ''
-    }
-
+    const addEdit = changeMode ? 'Endre' : 'Legg til';
     const header = `${addEdit} medlem`;
+
+    if( memberDontExist ) {
+      return (
+        <h5 style={{textAlign:'center'}}>{`Medlem med id ${failedId} finnes ikke`}</h5>
+      );
+    }
 
     return(
       <Form
@@ -63,6 +53,7 @@ class MemberForm extends React.Component {
         onInvalid={this.onInvalid}
         className={styles.form}
       >
+        { isLoading ? this.renderLoadingScreen() : ''}
         <fieldset>
           <legend>{header}</legend>
           <Input
@@ -134,10 +125,10 @@ class MemberForm extends React.Component {
             }}
             />
 
-          <AddStudentCardId {...idProps} />
+          <AddStudentCardId {...studentIdProps} actions={actions}/>
 
         </fieldset>
-        
+
         <div className={styles.btnBox}>
           <input type="submit" className="btn btn-primary" formnovalidate={true}
             disabled={this.state.submitDisabled} value={addEdit} />
@@ -148,12 +139,17 @@ class MemberForm extends React.Component {
   }
 }
 
-const storeConnect = (props) => {
-  return (
-    <AltContainer store={StudentIdStore} actions={{ actions: StudentIdActions }} >
-      <MemberForm {...props} />
-    </AltContainer>
-  );
+MemberForm.defaultProps = {
+  defaultValues: {
+    firstName: '',
+    lastName: '',
+    userName: '',
+    privateEmail: '',
+    mobile: ''
+  },
+  changeMode: false,
+  memberDontExist: false,
+  isLoading: false
 }
 
-export default storeConnect;
+export default MemberForm;

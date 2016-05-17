@@ -1,1 +1,1 @@
-.form{margin-bottom:30px}.btnBox{margin-top:15px;padding-top:10px;border-top:1px solid #ddd;text-align:right}
+.form{margin-bottom:30px;position:relative}.btnBox{margin-top:15px;padding-top:10px;border-top:1px solid #ddd;text-align:right}.loadingBox{z-index:5;height:100%;width:101%;display:flex;justify-content:center;align-items:center;background-color:rgba(255,255,255,0.5);color:black;position:absolute;left:0;top:0}

@@ -1,11 +1,18 @@
 import React, { PropTypes } from 'react'
 import { Row, Col } from 'react-bootstrap';
 import axios from 'axios';
+
+import AltContainer from 'alt-container';
+import StudentIdStore from '../../stores/StudentIdStore';
 import StudentIdActions from '../../actions/StudentIdActions';
 import NotificationActions from '../../actions/NotificationActions';
+
 import MemberForm from '../member.form/MemberForm.jsx';
 
 class AddPage extends React.Component {
+  componentWillUnmount() {
+    alt.recycle(StudentIdStore);
+  }
   onAddMember(newMember,resetForm,invalidate) {
     axios.post('http://192.168.0.112/api/user/add', newMember, {
       headers: {
@@ -54,7 +61,9 @@ class AddPage extends React.Component {
     return (
       <Row>
         <div className='col-md-6' style={{margin:'auto', float:'none'}}>
-          <MemberForm submit={this.onAddMember} />
+          <AltContainer stores={{ studentIdProps: StudentIdStore }} actions={{ actions: StudentIdActions }} >
+            <MemberForm submit={this.onAddMember} />
+          </AltContainer>
         </div>
       </Row>
     );
