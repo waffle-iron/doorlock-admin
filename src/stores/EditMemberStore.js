@@ -31,7 +31,16 @@ class EditMemberStore {
     this.isLoading = false;
   }
   onGetMemberError(err) {
+    this.isLoading = false;
+  }
+  onEditMemberLoading() {
     this.isLoading = true;
+  }
+  onEditMemberSuccess(member) {
+    this.isLoading = false;
+  }
+  onEditMemberError(err) {
+    this.isLoading = false;
   }
 }
 

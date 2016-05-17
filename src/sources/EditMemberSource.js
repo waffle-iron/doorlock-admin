@@ -30,6 +30,26 @@ const EditMemberSource = {
     loading: Actions.getMemberLoading,
     success: Actions.getMemberSuccess,
     error: Actions.getMemberError
+  },
+  editMember: {
+    remote(props, dbId, updatedMember) {
+      return axios.put(`http://192.168.0.112/api/user/edit/${dbId}`, updatedMember, {
+        headers: {
+          'x-access-token': localStorage.token
+        }
+      })
+      .then( (response) => {
+        if(response.data.success) {
+          return true
+        }
+        else {
+          throw new Error('Api error');
+        }
+      })
+    },
+    loading: Actions.editMemberLoading,
+    success: Actions.editMemberSuccess,
+    error: Actions.editMemberError
   }
 
 }
