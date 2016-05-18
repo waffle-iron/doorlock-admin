@@ -1,19 +1,27 @@
 import React, { PropTypes } from 'react'
 import { Row, Col } from 'react-bootstrap';
 import axios from 'axios';
+import { browserHistory } from 'react-router';
 
+import alt from '../../alt';
 import AltContainer from 'alt-container';
 import StudentIdStore from '../../stores/StudentIdStore';
 import StudentIdActions from '../../actions/StudentIdActions';
 import NotificationActions from '../../actions/NotificationActions';
+import tokenErrorHandler from '../../utils/tokenErrorHandler';
 
 import MemberForm from '../member.form/MemberForm.jsx';
 
 class AddPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onAddMember = this.onAddMember.bind(this);
+  }
   componentWillUnmount() {
     alt.recycle(StudentIdStore);
   }
   onAddMember(newMember,resetForm,invalidate) {
+    const pathname = this.props.location.pathname;
     axios.post('http://192.168.0.112/api/user/add', newMember, {
       headers: {
         'x-access-token': localStorage.token
@@ -33,27 +41,34 @@ class AddPage extends React.Component {
       }
     })
     .catch( (error) => {
-      switch (error.data.message) {
-        case 'Student card already in use':
+
+      // Token expired or not correct
+      if( error.status === 401 || error.status === 403 ) {
+        tokenErrorHandler(error, pathname);
+      }
+      else {
+        switch (error.data.message) {
+          case 'Student card already in use':
           StudentIdActions.setStudentId('');
           NotificationActions.error({
             title: 'Legg til medlem',
             message: 'Studentkort er allerede i bruk'
           });
           break;
-        case 'Validation error':
+          case 'Validation error':
           NotificationActions.error({
             title: 'Legg til medlem',
             message: 'Validering feilet på serveren\nPrøv på nytt',
             autoDismiss: 0
           });
           break;
-        default:
+          default:
           NotificationActions.error({
             title: 'Legg til medlem',
-            message: 'Feil på serveren\nPrøv på nytt',
+            message: 'Feil på serveren. Prøv på nytt',
             autoDismiss: 0
           });
+        }
       }
     });
   }

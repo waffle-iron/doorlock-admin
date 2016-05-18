@@ -21,10 +21,6 @@ const EditMemberSource = {
         else {
           throw new Error('shit happens');
         }
-      })
-      .catch(function (response) {
-        debugger
-        console.log(response);
       });
     },
     loading: Actions.getMemberLoading,
@@ -45,7 +41,7 @@ const EditMemberSource = {
         else {
           throw new Error('Api error');
         }
-      })
+      });
     },
     loading: Actions.editMemberLoading,
     success: Actions.editMemberSuccess,
