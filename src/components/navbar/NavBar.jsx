@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router';
 
@@ -13,14 +13,12 @@ class NavBar extends React.Component {
            </Navbar.Brand>
          </Navbar.Header>
          <Nav>
-           <NavDropdown eventKey={3} title="Medlemmer" id="basic-nav-dropdown">
-              <LinkContainer to='/medlem/liste'>
-                <MenuItem eventKey={3.1}>Liste</MenuItem>
-              </LinkContainer>
-              <LinkContainer to='/medlem/legg-til'>
-              <MenuItem eventKey={3.2}>Legg til</MenuItem>
-              </LinkContainer>
-           </NavDropdown>
+          <LinkContainer to='/medlem/liste'>
+            <NavItem eventKey={1}>Medlemmer</NavItem>
+          </LinkContainer>
+          <LinkContainer to='/medlem/legg-til'>
+            <NavItem eventKey={2}>Legg til medlem</NavItem>
+          </LinkContainer>
          </Nav>
        </Navbar>
     );
