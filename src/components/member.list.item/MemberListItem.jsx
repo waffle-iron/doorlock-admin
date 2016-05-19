@@ -1,12 +1,11 @@
 import React, { PropTypes } from 'react';
-import { LinkContainer } from 'react-router-bootstrap';
+import { Link } from 'react-router';
 
 import styles from './MemberListItem-style.css';
 
 const MemberListItem = ({name, onDelete, id}) => {
   return (
-    <LinkContainer to={'/medlem/edit'+id}>
-      <li className={'list-group-item '+ styles.memberItemBox}>
+      <Link to={'/medlem/endre/'+id} className={'list-group-item '+ styles.memberItemBox}>
         <div className={styles.txtCol}>
           <p><strong>{name}</strong></p>
         </div>
@@ -15,8 +14,7 @@ const MemberListItem = ({name, onDelete, id}) => {
             <i className='fa fa-trash fa-2x' title='Slett medlem' />
           </button>
         </div>
-      </li>
-    </LinkContainer>
+      </Link>
   )
 }
 
