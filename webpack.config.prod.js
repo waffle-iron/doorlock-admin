@@ -1,15 +1,19 @@
 var path = require('path');
 var webpack = require('webpack');
 
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var nodeRoot = path.join( __dirname, 'node_modules' );
+
 module.exports = {
+  stats: { children: false },
   devtool: 'source-map',
   entry: [
     './src/index'
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'static/js/'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/'
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -22,13 +26,25 @@ module.exports = {
       compressor: {
         warnings: false
       }
-    })
+    }),
+    new ExtractTextPlugin('../css/[name].css')
   ],
+  resolve: {
+    alias: {
+        'socket.io-client': path.join( nodeRoot, 'socket.io-client', 'socket.io.js' )
+    }
+  },
   module: {
+    noParse: [ /socket.io-client/ ],
     loaders: [{
-      test: /\.js$/,
+      test: /\.jsx?/,
       loaders: ['babel'],
       include: path.join(__dirname, 'src')
-    }]
+    },
+    {
+      test: /\.css$/,
+      loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')
+    }
+    ]
   }
 };
