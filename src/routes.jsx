@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, IndexRedirect, browserHistory } from 'react-router';
 
 import auth from './utils/auth';
 
@@ -23,6 +23,7 @@ export default () => {
   return (
     <Router history={browserHistory}>
       <Route path='/' component={App}>
+        <IndexRedirect to="/medlem/liste" />
         <Route path='/logg-inn' component={Login} />
         <Route path='/medlem/liste' component={MedlemsListe} onEnter={requireAuth}/>
         <Route path='/medlem/legg-til' component={LeggTil} onEnter={requireAuth}/>
