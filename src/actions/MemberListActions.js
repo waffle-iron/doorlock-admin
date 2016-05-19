@@ -34,6 +34,9 @@ class MemberListActions {
     }
     return true;
   }
+  changePage(newPage) {
+    return newPage;
+  }
   deleteMember(delMember, event) {
     event.preventDefault();
     return delMember;

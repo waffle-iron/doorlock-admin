@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 import MemberListItem from '../member.list.item/MemberListItem.jsx';
 import { ListGroup } from 'react-bootstrap';
 
+import styles from './MemberList-style.css';
+
 class MemberList extends React.Component {
   constructor(props) {
     super(props);
@@ -26,11 +28,21 @@ class MemberList extends React.Component {
       );
     });
   }
-  render() {
+  renderLoadingScreen() {
     return (
-      <ListGroup componentClass='div'>
-        {this.renderMembers()}
-      </ListGroup>
+      <div className={styles.loadingBox}><i className='fa fa-cog fa-spin fa-5x fa-fw'></i></div>
+    );
+  }
+  render() {
+    const { isLoading } = this.props.memberStore;
+
+    return (
+      <div style={{position:'relative'}}>
+        { isLoading ? this.renderLoadingScreen() : ''}
+        <ListGroup componentClass='div'>
+          {this.renderMembers()}
+        </ListGroup>
+      </div>
     );
   }
 }
