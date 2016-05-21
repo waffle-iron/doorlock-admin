@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { apiBaseUrl } from 'config';
+import api from './api';
 
 module.exports = {
   login(loginObj, callback) {
@@ -7,10 +9,11 @@ module.exports = {
       this.onChange(true);
       return;
     }
-    axios.post('http://192.168.0.112/api/authenticate', loginObj)
+    axios.post(apiBaseUrl+'/authenticate', loginObj)
     .then( (response) => {
       if( response.data.success ) {
         localStorage.token = response.data.token;
+        api.defaults.headers['x-access-token'] = response.data.token;
         if(callback) callback(true);
         this.onChange(true);
       }else {

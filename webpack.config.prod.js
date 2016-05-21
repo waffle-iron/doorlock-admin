@@ -3,6 +3,7 @@ var webpack = require('webpack');
 
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var nodeRoot = path.join( __dirname, 'node_modules' );
+var nodeEnv = process.env.NODE_ENV || 'development';
 
 module.exports = {
   stats: { children: false },
@@ -31,7 +32,8 @@ module.exports = {
   ],
   resolve: {
     alias: {
-        'socket.io-client': path.join( nodeRoot, 'socket.io-client', 'socket.io.js' )
+        'socket.io-client': path.join( nodeRoot, 'socket.io-client', 'socket.io.js' ),
+        'config': path.join(__dirname, 'src', 'config', nodeEnv)
     }
   },
   module: {
