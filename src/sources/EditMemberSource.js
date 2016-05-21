@@ -1,14 +1,10 @@
 import Actions from '../actions/EditMemberActions';
-import axios from 'axios';
+import api from '../utils/api';
 
 const EditMemberSource = {
   getMember: {
     remote(props,id) {
-      return axios.get(`http://192.168.0.112/api/user/findByID/${id}`, {
-        headers: {
-          'x-access-token': localStorage.token
-        }
-      })
+      return api.get(`/user/findByID/${id}`)
       .then(function (response) {
         if(response.data.success) {
           if( response.data.data ) {
@@ -29,11 +25,7 @@ const EditMemberSource = {
   },
   editMember: {
     remote(props, dbId, updatedMember) {
-      return axios.put(`http://192.168.0.112/api/user/edit/${dbId}`, updatedMember, {
-        headers: {
-          'x-access-token': localStorage.token
-        }
-      })
+      return api.put(`/user/edit/${dbId}`, updatedMember)
       .then( (response) => {
         if(response.data.success) {
           return true

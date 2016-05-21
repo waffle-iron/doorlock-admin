@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Row, Col } from 'react-bootstrap';
-import axios from 'axios';
+import api from '../../utils/api';
 import { browserHistory } from 'react-router';
 
 import alt from '../../alt';
@@ -22,11 +22,7 @@ class AddPage extends React.Component {
   }
   onAddMember(newMember,resetForm,invalidate) {
     const pathname = this.props.location.pathname;
-    axios.post('http://192.168.0.112/api/user/add', newMember, {
-      headers: {
-        'x-access-token': localStorage.token
-      }
-    })
+    api.post('/user/add', newMember)
     .then( (response) => {
       if(response.data.success) {
         NotificationActions.success({

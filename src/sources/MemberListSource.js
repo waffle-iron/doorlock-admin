@@ -1,17 +1,13 @@
 import Actions from '../actions/MemberListActions';
-import axios from 'axios';
+import api from '../utils/api';
 
 const MemberListSource = {
   getMembers: {
     remote({filter}) {
-      return axios.get('http://192.168.0.112/api/user/', {
+      return api.get('/user', {
         params: filter,
-        headers: {
-          'x-access-token': localStorage.token
-        }
       })
       .then(function (response) {
-        // debugger
         if(response.data.success) {
           return response.data.data;
         }
@@ -25,11 +21,7 @@ const MemberListSource = {
   },
   deleteMember: {
     remote(state,delId, delIndex, delName) {
-      return axios.delete(`http://192.168.0.112/api/user/delete/${delId}`, {
-        headers: {
-          'x-access-token': localStorage.token
-        }
-      })
+      return api.delete(`/user/delete/${delId}`)
       .then(function (response) {
         if(response.data.success) {
           return { index: delIndex, name: delName };
