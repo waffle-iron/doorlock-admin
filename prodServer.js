@@ -4,12 +4,24 @@ var app = express();
 var fs = require('fs');
 var port = process.env.PORT || 3001;
 
+var logger = function(msg) {
+  console.log('--------------------------------------------');
+  console.log(msg);
+  console.log(new Date());
+}
+
+console.log('--------------------------------------------');
+console.log('App started');
 console.log('Checking if bundle exists:');
 try {
     fs.accessSync(path.join(__dirname, 'static', 'js', 'bundle.js'), fs.F_OK);
-    console.log('Bundle exists');
+    console.log('Bundle exists, moving on');
+    console.log(new Date());
 } catch (e) {
-    console.log('Bundle does not exist. Build using "npm run build"');
+    console.error('--------------------------------------------');
+    console.error('Bundle does not exist. App will exit');
+    console.error('Build using "npm run build"');
+    console.error(new Date());
     process.exit(1);
 }
 
@@ -21,9 +33,9 @@ app.get('*', function(req, res) {
 
 app.listen(port, function(err) {
   if (err) {
-    console.log(err);
+    console.error(err);
     return;
   }
 
-  console.log('Listening at port ' + port);
+  logger('Server listening at port ' + port);
 });
