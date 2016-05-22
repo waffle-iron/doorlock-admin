@@ -101,11 +101,26 @@ class MemberForm extends React.Component {
             />
 
           <Input
+            name="graduationYear"
+            value={defaultValues.graduationYear}
+            min={2010}
+            label="Avgangsår"
+            type="number"
+            autoComplete={false}
+            validations="isLength:4"
+            validationErrors={{
+              isLength: 'Årstall med format yyyy'
+            }}
+            placeholder="Året medlemmet er ferdig på UIT"
+            required
+            />
+
+          <Input
             name="privateEmail"
             value={defaultValues.privateEmail}
             label="Privat e-post"
             type="email"
-            autoComplete="off"
+            autoComplete={false}
             placeholder="Medlemmets private e-post (ola@gmail.com)"
             validations="isEmail"
             validationErrors={{
@@ -146,6 +161,7 @@ MemberForm.defaultProps = {
     firstName: '',
     lastName: '',
     userName: '',
+    graduationYear: '',
     privateEmail: '',
     mobile: ''
   },
