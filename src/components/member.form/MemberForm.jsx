@@ -63,7 +63,7 @@ class MemberForm extends React.Component {
             label="Fornavn"
             type="text"
             validations={{
-              matchRegexp: /^[a-zA-Z \-,.()]*$/
+              matchRegexp: /^[a-zA-Z \-æøåÆØÅ]*$/
             }}
             validationErrors={{
               matchRegexp: 'Kun bokstaver og bindestreker er godtatt'
@@ -77,9 +77,11 @@ class MemberForm extends React.Component {
             value={defaultValues.lastName}
             label="Etternavn"
             type="text"
-            validations="isAlpha"
+            validations={{
+              matchRegexp: /^[a-zA-Z æøåÆØÅ]*$/
+            }}
             validationErrors={{
-              isAlpha: 'Kun bokstaver er godtatt'
+              matchRegexp: 'Kun bokstaver er godtatt'
             }}
             placeholder="Medlemmets etternavn"
             required
@@ -104,7 +106,7 @@ class MemberForm extends React.Component {
             label="Privat e-post"
             type="email"
             autoComplete="off"
-            placeholder="Medlemmets private e-post (xxx@xxx.xxx)"
+            placeholder="Medlemmets private e-post (ola@gmail.com)"
             validations="isEmail"
             validationErrors={{
               isEmail: 'Dette ser ikke ut som en gyldig e-postadresse'
@@ -117,7 +119,7 @@ class MemberForm extends React.Component {
             label="Telefonnummer"
             type="text"
             autoComplete="off"
-            placeholder="Medlemmets telefonnummer ( xxxxxxxx )"
+            placeholder="Medlemmets telefonnummer ( 12345678 )"
             validations="isNumeric,isLength:8"
             validationErrors={{
               isNumeric: 'Dette ser ikke ut som et gyldig telefonnummer',
