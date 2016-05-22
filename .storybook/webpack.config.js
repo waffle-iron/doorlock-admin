@@ -8,7 +8,7 @@ module.exports = {
     extensions: ['', '.js', '.jsx'],
     alias: {
         'socket.io-client': path.join( nodeRoot, 'socket.io-client', 'socket.io.js' ),
-        'config': path.join(__dirname, 'src', 'config', nodeEnv)
+        'config': path.join(__dirname, '..', 'src', 'config', nodeEnv)
     }
   },
   module: {
