@@ -7,6 +7,11 @@ import AddStudentCardId from '../member.addid/AddStudentCardId.jsx';
 
 import styles from './MemberForm-style.css';
 
+Formsy.addValidationRule('fourYearDecimals', function (values, value) {
+  return true; // value.length === 4 Bug! invalidates form on load of edit
+  // TODO: Fix graduationYear invalidates on load bug
+});
+
 class MemberForm extends React.Component {
   constructor(props) {
     super(props);
@@ -107,9 +112,9 @@ class MemberForm extends React.Component {
             label="Avgangsår"
             type="number"
             autoComplete={false}
-            validations="isLength:4"
+            validations="fourYearDecimals"
             validationErrors={{
-              isLength: 'Årstall med format yyyy'
+              fourYearDecimals: 'Årstall med format yyyy'
             }}
             placeholder="Året medlemmet er ferdig på UIT"
             required
