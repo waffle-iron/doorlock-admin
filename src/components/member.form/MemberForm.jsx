@@ -7,6 +7,11 @@ import AddStudentCardId from '../member.addid/AddStudentCardId.jsx';
 
 import styles from './MemberForm-style.css';
 
+Formsy.addValidationRule('fourYearDecimals', function (values, value) {
+  return true; // value.length === 4 Bug! invalidates form on load of edit
+  // TODO: Fix graduationYear invalidates on load bug
+});
+
 class MemberForm extends React.Component {
   constructor(props) {
     super(props);
@@ -63,7 +68,7 @@ class MemberForm extends React.Component {
             label="Fornavn"
             type="text"
             validations={{
-              matchRegexp: /^[a-zA-Z \-,.()]*$/
+              matchRegexp: /^[a-zA-Z \-æøåÆØÅ]*$/
             }}
             validationErrors={{
               matchRegexp: 'Kun bokstaver og bindestreker er godtatt'
@@ -77,9 +82,11 @@ class MemberForm extends React.Component {
             value={defaultValues.lastName}
             label="Etternavn"
             type="text"
-            validations="isAlpha"
+            validations={{
+              matchRegexp: /^[a-zA-Z æøåÆØÅ]*$/
+            }}
             validationErrors={{
-              isAlpha: 'Kun bokstaver er godtatt'
+              matchRegexp: 'Kun bokstaver er godtatt'
             }}
             placeholder="Medlemmets etternavn"
             required
@@ -99,12 +106,27 @@ class MemberForm extends React.Component {
             />
 
           <Input
+            name="graduationYear"
+            value={defaultValues.graduationYear}
+            min={2010}
+            label="Avgangsår"
+            type="number"
+            autoComplete={false}
+            validations="fourYearDecimals"
+            validationErrors={{
+              fourYearDecimals: 'Årstall med format yyyy'
+            }}
+            placeholder="Året medlemmet er ferdig på UIT"
+            required
+            />
+
+          <Input
             name="privateEmail"
             value={defaultValues.privateEmail}
             label="Privat e-post"
             type="email"
-            autoComplete="off"
-            placeholder="Medlemmets private e-post (xxx@xxx.xxx)"
+            autoComplete={false}
+            placeholder="Medlemmets private e-post (ola@gmail.com)"
             validations="isEmail"
             validationErrors={{
               isEmail: 'Dette ser ikke ut som en gyldig e-postadresse'
@@ -117,7 +139,7 @@ class MemberForm extends React.Component {
             label="Telefonnummer"
             type="text"
             autoComplete="off"
-            placeholder="Medlemmets telefonnummer ( xxxxxxxx )"
+            placeholder="Medlemmets telefonnummer ( 12345678 )"
             validations="isNumeric,isLength:8"
             validationErrors={{
               isNumeric: 'Dette ser ikke ut som et gyldig telefonnummer',
@@ -144,6 +166,7 @@ MemberForm.defaultProps = {
     firstName: '',
     lastName: '',
     userName: '',
+    graduationYear: '',
     privateEmail: '',
     mobile: ''
   },

@@ -8,6 +8,7 @@ class EditMemberStore {
       firstName: '',
       lastName: '',
       userName: '',
+      graduationYear: '',
       privateEmail: '',
       mobile: ''
     }

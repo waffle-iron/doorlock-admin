@@ -43,6 +43,7 @@ storiesOf('Member.Form', module)
         firstName: 'Ole-Andreas',
         lastName: 'Nylund',
         userName: 'ony008',
+        graduationYear: 2017,
         privateEmail: 'ole@gmail.com',
         mobile: '48222233',
         studentCardId: 'e32423424'
@@ -68,6 +69,7 @@ storiesOf('Member.Form', module)
         lastName: 'Nylund',
         userName: 'ony008',
         privateEmail: 'ole@gmail.com',
+        graduationYear: 2017,
         mobile: '48222233',
         studentCardId: 'e32423424'
       }
