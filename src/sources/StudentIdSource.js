@@ -13,7 +13,7 @@ const StudentIdSource = {
           });
         }, 12000);
 
-        let socket = io(baseUrl + ':8080');
+        let socket = io(baseUrl + ':8080/get-id');
         socket.on('connect', function () {
           socket.emit('scanNewId', function (id) {
             if(id) {
