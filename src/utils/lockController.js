@@ -63,3 +63,5 @@ authSocket.on('connect', () => {
     console.log(err);
   });
 });
+
+export default LockController;
