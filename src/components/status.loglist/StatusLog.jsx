@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes } from 'react';
+import { Panel } from 'react-bootstrap';
 
 import styles from './StatusLog-style.css';
 
@@ -15,16 +16,14 @@ class StatusLog extends React.Component {
   }
   render () {
     return (
-      <div ref='scrollBox' className={styles.logBox}>
-        {this.props.store.log.split('\n').map(function(line, i) {
-          return (
-            <span key={i}>
-              {line}
-              <br/>
-            </span>
-          )
-        })}
-      </div>
+      <Panel header={<h3>Server logg</h3>} bsStyle='primary'>
+        <div ref='scrollBox' className={styles.logBox}>
+          {this.props.store.log.split('\n').map(function(line, i, arr) {
+            if( i === arr.length-1) return null;
+            return (<span key={i}>{line}<br/></span>);
+          })}
+        </div>
+      </Panel>
     );
   }
 }
