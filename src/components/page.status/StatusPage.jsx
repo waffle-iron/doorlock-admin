@@ -11,13 +11,13 @@ import StatusLog from '../status.loglist/StatusLog.jsx';
 
 const StatusPage = (props) => {
   return (
-    <div>
+    <Row>
       <Col md={4}>
-      <AltContainer stores={{ store: StatusStore }} actions={{ actions: StatusActions }} >
-          <StatusLog />
-      </AltContainer>
-    </Col>
-    </div>
+        <AltContainer stores={{ store: StatusStore }} actions={{ actions: StatusActions }} >
+            <StatusLog />
+        </AltContainer>
+      </Col>
+    </Row>
   )
 }
 
