@@ -5,8 +5,8 @@ class StatusActions {
   logData(log) {
     return log;
   }
-  lockStatusUpdate(state) {
-    return state;
+  lockStatusUpdate(status) {
+    return status;
   }
 }
 

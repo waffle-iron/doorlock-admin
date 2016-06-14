@@ -14,7 +14,7 @@ const LockController = {
     StatusActions.logData(log);
   },
   _newLockStatus(status) {
-    StatusActions.lockStatusUpdate(status.lockState);
+    StatusActions.lockStatusUpdate(status);
   },
   _checkAuth() {
     return _isAuthenticated;
@@ -40,7 +40,7 @@ authSocket.on('connect', () => {
     authSocket.on('logTail', (log) => {
       LockController._newLogUpdate(log);
     });
-    authSocket.on('getLockStatus', (status) => {
+    authSocket.on('lockStatus', (status) => {
       LockController._newLockStatus(status);
     });
 

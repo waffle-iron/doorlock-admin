@@ -4,12 +4,14 @@ import StatusActions from '../actions/StatusActions';
 class StatusStore {
   constructor() {
     this.log = '';
+    this.lockStatus = {}
     this.bindActions(StatusActions);
   }
   onLogData(log) {
     this.log = this.log.concat(log);
   }
-  onLockStatusUpdate(state) {
+  onLockStatusUpdate(status) {
+    this.lockStatus = status;
   }
 }
 
