@@ -8,6 +8,12 @@ class StatusActions {
   lockStatusUpdate(status) {
     return status;
   }
+  forceOpen() {
+    return true;
+  }
+  forceClose() {
+    return true;
+  }
 }
 
 export default alt.createActions(StatusActions);
