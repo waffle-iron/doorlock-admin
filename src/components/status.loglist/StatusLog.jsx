@@ -16,6 +16,15 @@ class StatusLog extends React.Component {
       node.scrollTop = node.scrollHeight;
     }
   }
+  componentDidMount() {
+    const self = this;
+    window.setTimeout(() => {
+      if(self.refs.scrollBox) {
+        const node = self.refs.scrollBox;
+        node.scrollTop = node.scrollHeight;
+      }
+    }, 100);
+  }
   renderBox() {
     const log = this.props.log;
     if( !log.length ) {
