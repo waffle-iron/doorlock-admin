@@ -47,12 +47,14 @@ authSocket.on('connect', () => {
   });
 
   // Initial authentication attempt
-  authSocket.emit('authenticate', {token: localStorage.token });
+  authSocket.emit('authenticate', { token: localStorage.token });
 
   // Socket error handling
   authSocket.on('unauthorized', (err) => {
-    if (err.type == 'UnauthorizedError' || err.code == 'invalid_token') {
+    if (err.data.type == 'UnauthorizedError' || err.data.code == 'invalid_token') {
       LockController._setAuthentication(false);
+      // console.log('socket.io: attemtping new authentication');
+      // authSocket.emit('authenticate', { token: localStorage.token }); <--- neverending loop
       // Redirect user to login page perhaps?
       // Token will be verified by router and should redirect for us..
     }
