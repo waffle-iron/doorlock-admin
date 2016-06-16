@@ -9,7 +9,7 @@ class NavBar extends React.Component {
       <Navbar>
          <Navbar.Header>
            <Navbar.Brand>
-             <Link to='/'>Hackerspace UI</Link>
+             <Link to='/status'>Hackerspace UI</Link>
            </Navbar.Brand>
          </Navbar.Header>
          <Nav>

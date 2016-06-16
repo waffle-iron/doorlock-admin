@@ -9,6 +9,7 @@ import MedlemsListe from './components/page.list/MemberListPage.jsx';
 import LeggTil from './components/page.add/AddPage.jsx';
 import EndreMedlem from './components/page.edit/EditPage.jsx';
 import NotFound from './components/page.notfound/NotFoundPage.jsx';
+import StatusPage from './components/page.status/StatusPage.jsx';
 
 const requireAuth = (nextState, replace) => {
   if (!auth.loggedIn()) {
@@ -23,8 +24,9 @@ export default () => {
   return (
     <Router history={browserHistory}>
       <Route path='/' component={App}>
-        <IndexRedirect to="/medlem/liste" />
+        <IndexRedirect to="/status" />
         <Route path='/logg-inn' component={Login} />
+		    <Route path='/status' component={StatusPage} onEnter={requireAuth}/>
         <Route path='/medlem/liste' component={MedlemsListe} onEnter={requireAuth}/>
         <Route path='/medlem/legg-til' component={LeggTil} onEnter={requireAuth}/>
         <Route path='/medlem/endre/:id' component={EndreMedlem} onEnter={requireAuth}/>

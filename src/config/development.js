@@ -1,4 +1,4 @@
-const baseUrl = 'http://doorlock';
+const baseUrl = 'http://latskapet.org.uit.no';
 
 module.exports = {
     baseUrl,
