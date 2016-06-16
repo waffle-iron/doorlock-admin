@@ -25,8 +25,8 @@ export default () => {
     <Router history={browserHistory}>
       <Route path='/' component={App}>
         <IndexRedirect to="/status" />
-		<Route path='/status' component={StatusPage} onEnter={requireAuth}/>
         <Route path='/logg-inn' component={Login} />
+		    <Route path='/status' component={StatusPage} onEnter={requireAuth}/>
         <Route path='/medlem/liste' component={MedlemsListe} onEnter={requireAuth}/>
         <Route path='/medlem/legg-til' component={LeggTil} onEnter={requireAuth}/>
         <Route path='/medlem/endre/:id' component={EndreMedlem} onEnter={requireAuth}/>
