@@ -38,6 +38,7 @@ const LockController = {
 
 
 authSocket.on('connect', () => {
+  StatusActions.setSocketStatus('connected');
   // Confirmation of authentication event from server
   authSocket.on('authenticated', () => {
     LockController._setAuthentication(true);
@@ -78,8 +79,16 @@ authSocket.on('reconnect_failed', () => {
   NotificationActions.error({
     title: 'Tilkoblingsfeil dørlås',
     message: 'Får ikke kontakt med dørlåsserver',
-    autoDismiss: 0
+    autoDismiss: 0,
+    action: {
+      label: 'Prøv å koble til',
+      callback() {
+        authSocket.io.connect();
+        StatusActions.setSocketStatus('connecting');
+      }
+    }
   });
+  StatusActions.setSocketStatus('failed');
 });
 
 export default LockController;

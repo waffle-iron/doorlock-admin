@@ -14,6 +14,9 @@ class StatusActions {
   forceClose() {
     return true;
   }
+  setSocketStatus(state) {
+    return state;
+  }
 }
 
 export default alt.createActions(StatusActions);

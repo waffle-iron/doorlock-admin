@@ -5,6 +5,7 @@ import lockController from '../utils/lockController';
 class StatusStore {
   constructor() {
     this.log = '';
+    this.socketStatus = 'connecting';
     this.lockStatus = {
       isLocked: true
     }
@@ -21,6 +22,9 @@ class StatusStore {
   }
   onForceClose() {
     lockController.forceClose();
+  }
+  onSetSocketStatus(state) {
+    this.socketStatus = state;
   }
 }
 
