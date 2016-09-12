@@ -20,6 +20,15 @@ storiesOf('Status.LockStatus', module)
     }
     return <CenterModule width={800} bgColor='#FFF'><LockStatus {...props} /></CenterModule>
   })
+  .add('waiting for btn ack', () => {
+    const props = {
+      isLocked: false,
+      isLoading: false,
+      lockBtnClick: linkTo('Status.LockStatus', 'locked'),
+      lockBtnDisabled: true
+    }
+    return <CenterModule width={800} bgColor='#FFF'><LockStatus {...props} /></CenterModule>
+  })
   .add('loading', () => {
     const props = {
       isLocked: false,

@@ -26,12 +26,16 @@ const LockController = {
   },
   forceOpen() {
     if( this._checkAuth() ) {
-      authSocket.emit('forceOpen');
+      authSocket.emit('forceOpen', (status) => {
+        StatusActions.activateLockBtn(status);
+      });
     }
   },
   forceClose() {
     if( this._checkAuth() ) {
-      authSocket.emit('forceClose');
+      authSocket.emit('forceClose', (status) => {
+        StatusActions.activateLockBtn(status);
+      });
     }
   },
 }

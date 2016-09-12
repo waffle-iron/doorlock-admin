@@ -3,16 +3,20 @@ import { Panel, Button } from 'react-bootstrap';
 
 class LockStatus extends React.Component {
   render () {
-    const { isLocked, isLoading, lockBtnClick } = this.props;
+    const { isLocked, isLoading, lockBtnClick, lockBtnDisabled } = this.props;
     const statusString = isLocked ? 'LÅST' : 'ÅPEN';
-    const btnString = isLocked ? 'ÅPNE' : 'LÅS';
+    const btnString = lockBtnDisabled ? 'VENTER...' : (isLocked ? 'ÅPNE' : 'LÅS');
 
     return (
       <Panel header={<h3>Låsstatus</h3>} bsStyle='primary'>
         { isLoading ? <i className='fa fa-cog fa-spin fa-3x fa-fw'></i> :
         <div>
           <span style={{marginRight:20}}>Døren er <strong>{statusString}</strong></span>
-          <Button bsStyle='info' onClick={lockBtnClick.bind(null,isLocked)}>{btnString}</Button>
+          <Button
+            bsStyle='info'
+            onClick={lockBtnClick.bind(null,isLocked)}
+            disabled={lockBtnDisabled}
+            >{btnString}</Button>
         </div>
         }
       </Panel>

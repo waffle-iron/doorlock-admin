@@ -2,6 +2,9 @@ import alt from '../alt';
 import NotificationActions from './NotificationActions';
 
 class StatusActions {
+  activateLockBtn(status) {
+    return status;
+  }
   logData(log) {
     return log;
   }

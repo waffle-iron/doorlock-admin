@@ -23,7 +23,7 @@ class StatusContent extends React.Component {
     }
   }
   render () {
-    const { lockStatus: { isLocked }, log, socketStatus } = this.props;
+    const { lockStatus: { isLocked }, log, socketStatus, lockBtnDisabled } = this.props;
     const doorlockState = socketStatus === 'connecting';
 
     if( socketStatus === 'failed' ) {
@@ -39,6 +39,7 @@ class StatusContent extends React.Component {
             lockBtnClick={this.lockBtnClick}
             isLocked={isLocked}
             isLoading={doorlockState}
+            lockBtnDisabled={lockBtnDisabled}
           />
         </Col>
         <Col md={6}>
