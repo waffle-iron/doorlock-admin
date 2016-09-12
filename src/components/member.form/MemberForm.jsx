@@ -136,7 +136,7 @@ class MemberForm extends React.Component {
             name="mobile"
             value={defaultValues.mobile}
             label="Telefonnummer"
-            type="text"
+            type="tel"
             autoComplete="off"
             placeholder="Medlemmets telefonnummer ( 12345678 )"
             validations="isNumeric,isLength:8"
