@@ -2,6 +2,7 @@ import StatusActions from '../actions/StatusActions';
 import NotificationActions from '../actions/NotificationActions';
 import io from 'socket.io-client';
 import { baseUrl } from 'config';
+import tokenErrorHandler from './tokenErrorHandler';
 
 const authSocket = io(baseUrl + ':8080/auth');
 authSocket.io.reconnectionAttempts(5);
@@ -63,10 +64,12 @@ authSocket.on('connect', () => {
 
   // Socket error handling
   authSocket.on('unauthorized', (err) => {
-    if (err.data.type == 'UnauthorizedError' || err.data.code == 'invalid_token') {
-      LockController._setAuthentication(false);
-      console.log('Authentication of socket failed. Try to refresh page');
-      // Token will be verified by router and should redirect
+    LockController._setAuthentication(false);
+    if (err.message === 'jwt expired' && err.data.code == 'invalid_token') {
+        tokenErrorHandler({ status: 401 }, '/status');
+    }
+    else {
+      tokenErrorHandler({ status: 403 }, '/status');
     }
   });
 });
