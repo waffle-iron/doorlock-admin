@@ -1,4 +1,4 @@
-const baseUrl = 'http://latskapet.org.uit.no';
+const baseUrl = 'http://yourDevAddress';
 
 module.exports = {
     baseUrl,
