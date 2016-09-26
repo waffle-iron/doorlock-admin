@@ -17,7 +17,7 @@ class NavBar extends React.Component {
            <Nav>
              <NavDropdown eventKey={1} title='Medlemmer' id='medlemmer-dropdown'>
                <LinkContainer to='/medlem/liste'>
-                 <MenuItem eventKey={1.1}>Medlemmer</MenuItem>
+                 <MenuItem eventKey={1.1}>Medlemsliste</MenuItem>
                </LinkContainer>
                <LinkContainer to='/medlem/legg-til'>
                  <MenuItem eventKey={1.2}>Legg til medlem</MenuItem>
