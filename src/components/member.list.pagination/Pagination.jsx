@@ -4,7 +4,9 @@ import { Pagination } from 'react-bootstrap';
 class MemberPagination extends React.Component {
   render () {
     const { actions } = this.props;
-    const { memberList, queryCount, currentPage, pages } = this.props.memberStore;
+    const { memberList, listState } = this.props.memberStore;
+    const { queryCount, currentPage, pages } = listState;
+
     const showPagination = memberList.length < queryCount;
     return (
       <div style={{textAlign:'center'}}>

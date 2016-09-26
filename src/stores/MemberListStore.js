@@ -1,20 +1,17 @@
 import alt from '../alt';
 import MemberListActions from '../actions/MemberListActions';
 import MemberListSource from '../sources/MemberListSource';
+import {
+  genInitialListState,
+  newFetch,
+  changePage,
+  deleteItem
+} from '../utils/listHelper';
 
 class MemberListStore {
   constructor() {
     this.memberList = [];
-    this.queryCount = null;
-    this.pages = 1;
-    this.currentPage = 1;
-    this.filter = {
-      limit: 10,
-      offset: 0,
-      // order: 'ASC',
-      // firstName: '',
-      // lastName: ''
-    }
+    this.listState = genInitialListState();
     this.isLoading = false;
     this.bindActions(MemberListActions);
     this.registerAsync(MemberListSource);
@@ -26,17 +23,15 @@ class MemberListStore {
     }
   }
   onGetMembersSuccess(result) {
-    this.memberList = result.rows;
-    this.queryCount = result.count;
-    this.pages = Math.ceil(result.count/this.filter.limit);
+    this.listState = newFetch(result, this.listState);
+    this.memberList = [...result.rows];
     this.isLoading = false;
   }
   onGetMembersError() {
     this.isLoading = false;
   }
   onChangePage(newPage) {
-    this.filter.offset = (newPage - 1) * this.filter.limit;
-    this.currentPage = newPage;
+    this.listState = changePage(newPage, this.listState);
     this.isLoading = true;
     this.getInstance().getMembers();
   }
@@ -47,17 +42,19 @@ class MemberListStore {
     }
   }
   onDeleteMemberSuccess(index) {
-    this.memberList.splice(index, 1);
-    if( this.memberList.length === 0 && this.currentPage > 1 ) {
-      this.currentPage = this.currentPage - 1;
-      this.filter.offset = (this.currentPage - 1) * this.filter.limit;
-      this.getInstance().getMembers();
-    }
-    else if ( this.currentPage === this.pages ) {
-      this.isLoading = false;
+    const { 
+      list,
+      listState,
+      isLoading,
+      shouldRefetch } = deleteItem(index, this.memberList, this.listState);
+
+    this.memberList = list;
+    this.listState = listState;
+    if(shouldRefetch) {
+      this.onGetMembers();
     }
     else {
-      this.getInstance().getMembers();
+      this.isLoading = false;
     }
   }
   onDeleteMemberError() {
