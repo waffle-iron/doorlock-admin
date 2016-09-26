@@ -12,7 +12,7 @@ import tokenErrorHandler from '../../utils/tokenErrorHandler';
 
 import MemberForm from '../member.form/MemberForm.jsx';
 
-class AddPage extends React.Component {
+class AddMemberPage extends React.Component {
   constructor(props) {
     super(props);
     this.onAddMember = this.onAddMember.bind(this);
@@ -81,4 +81,4 @@ class AddPage extends React.Component {
   }
 }
 
-export default AddPage;
+export default AddMemberPage;

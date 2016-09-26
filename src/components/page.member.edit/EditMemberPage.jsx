@@ -12,7 +12,7 @@ import NotificationActions from '../../actions/NotificationActions';
 
 import MemberForm from '../member.form/MemberForm.jsx';
 
-class EditPage extends React.Component {
+class EditMemberPage extends React.Component {
   constructor(props) {
     super(props);
     this.onEditMember = this.onEditMember.bind(this);
@@ -61,4 +61,4 @@ class EditPage extends React.Component {
   }
 }
 
-export default EditPage;
+export default EditMemberPage;
