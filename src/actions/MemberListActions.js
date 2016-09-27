@@ -37,8 +37,7 @@ class MemberListActions {
   changePage(newPage) {
     return newPage;
   }
-  deleteMember(delMember, event) {
-    event.preventDefault();
+  deleteMember(delMember) {
     return delMember;
   }
   deleteMemberSuccess(delInfo) {
