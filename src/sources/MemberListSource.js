@@ -3,7 +3,7 @@ import api from '../utils/api';
 
 const MemberListSource = {
   getMembers: {
-    remote({filter}) {
+    remote({ listState: { filter }}) {
       return api.get('/user', {
         params: filter,
       })
