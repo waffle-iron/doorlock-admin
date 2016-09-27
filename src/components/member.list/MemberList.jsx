@@ -10,11 +10,10 @@ class MemberList extends React.Component {
     this.renderMembers = this.renderMembers.bind(this);
   }
   componentWillMount() {
-    this.props.actions.getMembers();
+    this.props.getMembers();
   }
   renderMembers() {
-    const { memberList } = this.props.memberStore;
-    const { actions } = this.props;
+    const { memberList, deleteMember } = this.props;
 
     return memberList.map( (member, i) => {
       const memberName = `${member.firstName} ${member.lastName}`;
@@ -23,7 +22,7 @@ class MemberList extends React.Component {
           key={i}
           name={memberName}
           id={member.id}
-          onDelete={actions.deleteMember.bind(null, {index: i, id: member.id, name: memberName})}
+          onDelete={deleteMember.bind(null, {index: i, id: member.id, name: memberName})}
         />
       );
     });
@@ -34,7 +33,7 @@ class MemberList extends React.Component {
     );
   }
   render() {
-    const { isLoading } = this.props.memberStore;
+    const { isLoading } = this.props;
 
     return (
       <div style={{position:'relative'}}>

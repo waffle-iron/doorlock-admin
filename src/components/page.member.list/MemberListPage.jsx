@@ -13,25 +13,32 @@ class MemberListPage extends React.Component {
     return (
       <Row>
         <AltContainer
-          stores={{
-            memberStore: MemberListStore
+          stores={[MemberListStore]}
+          inject={{
+            memberList: () => MemberListStore.getState().memberList,
+            isLoading: () => MemberListStore.getState().isLoading
           }}
-          actions={{ actions: MemberListActions}}
+          actions={(props) => ({
+              getMembers: () => MemberListActions.getMembers(),
+              deleteMember: (delMember, e) => {
+                e.preventDefault();
+                MemberListActions.deleteMember(delMember);
+              }
+          })}
         >
           <MemberList />
         </AltContainer>
         <AltContainer
           stores={[MemberListStore]}
           inject={{
-            currentPage: () => {
-              return MemberListStore.getState().listState.currentPage;
-            },
-            pages: () => {
-              return MemberListStore.getState().listState.pages;
-            },
+            currentPage: () => MemberListStore.getState().listState.currentPage,
+            pages: () => MemberListStore.getState().listState.pages
           }}
+          actions={(props) => ({
+            onChangeSelect: (newPage) => MemberListActions.changePage(newPage)
+          })}
         >
-          <ListPagination onChangeSelect={MemberListActions.changePage} />
+          <ListPagination />
         </AltContainer>
       </Row>
     );
