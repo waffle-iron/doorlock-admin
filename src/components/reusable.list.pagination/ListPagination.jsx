@@ -1,13 +1,10 @@
 import React, { PropTypes } from 'react';
 import { Pagination } from 'react-bootstrap';
 
-class MemberPagination extends React.Component {
+class ListPagination extends React.Component {
   render () {
-    const { actions } = this.props;
-    const { memberList, listState } = this.props.memberStore;
-    const { queryCount, currentPage, pages } = listState;
-
-    const showPagination = memberList.length < queryCount;
+    const { currentPage, pages, onChangeSelect } = this.props;
+    const showPagination = pages > 1;
     return (
       <div style={{textAlign:'center'}}>
         { showPagination ?
@@ -20,10 +17,10 @@ class MemberPagination extends React.Component {
           items={pages}
           maxButtons={3}
           activePage={currentPage}
-          onSelect={actions.changePage} /> : '' }
+          onSelect={onChangeSelect} /> : '' }
       </div>
     );
   }
 }
 
-export default MemberPagination;
+export default ListPagination;

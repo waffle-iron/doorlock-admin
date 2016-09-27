@@ -5,7 +5,7 @@ import MemberListStore from '../../stores/MemberListStore';
 import MemberListActions from '../../actions/MemberListActions';
 
 import MemberList from '../member.list/MemberList.jsx';
-import MemberPagination from '../member.list.pagination/Pagination.jsx';
+import ListPagination from '../reusable.list.pagination/ListPagination.jsx';
 import { Row, Col } from 'react-bootstrap';
 
 class MemberListPage extends React.Component {
@@ -19,7 +19,19 @@ class MemberListPage extends React.Component {
           actions={{ actions: MemberListActions}}
         >
           <MemberList />
-          <MemberPagination />
+        </AltContainer>
+        <AltContainer
+          stores={[MemberListStore]}
+          inject={{
+            currentPage: () => {
+              return MemberListStore.getState().listState.currentPage;
+            },
+            pages: () => {
+              return MemberListStore.getState().listState.pages;
+            },
+          }}
+        >
+          <ListPagination onChangeSelect={MemberListActions.changePage} />
         </AltContainer>
       </Row>
     );
