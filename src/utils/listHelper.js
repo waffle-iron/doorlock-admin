@@ -38,7 +38,7 @@ export const deleteItem = (index, list, listState) => {
   const { currentPage, filter, pages } = listState;
   const newList = [...list];
   newList.splice(index, 1);
-  console.log(newList.length);
+
   if( newList.length === 0 && currentPage > 1 ) {
     return {
       list: newList,
