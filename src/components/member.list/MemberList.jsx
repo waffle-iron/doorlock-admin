@@ -9,9 +9,6 @@ class MemberList extends React.Component {
     super(props);
     this.renderMembers = this.renderMembers.bind(this);
   }
-  componentWillMount() {
-    this.props.getMembers();
-  }
   renderMembers() {
     const { memberList, deleteMember } = this.props;
 

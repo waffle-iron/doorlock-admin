@@ -9,6 +9,9 @@ import ListPagination from '../reusable.list.pagination/ListPagination.jsx';
 import { Row, Col } from 'react-bootstrap';
 
 class MemberListPage extends React.Component {
+  componentWillMount() {
+    MemberListActions.getMembers();
+  }
   render () {
     return (
       <Row>
@@ -19,7 +22,6 @@ class MemberListPage extends React.Component {
             isLoading: () => MemberListStore.getState().isLoading
           }}
           actions={(props) => ({
-              getMembers: () => MemberListActions.getMembers(),
               deleteMember: (delMember, e) => {
                 e.preventDefault();
                 MemberListActions.deleteMember(delMember);
