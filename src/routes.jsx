@@ -9,7 +9,7 @@ import MedlemsListe from './pages/member.list/MemberListPage.jsx';
 import LeggTilMedlem from './pages/member.add/AddMemberPage.jsx';
 import EndreMedlem from './pages/member.edit/EditMemberPage.jsx';
 import NotFound from './pages/notfound/NotFoundPage.jsx';
-import StatusPage from './pages/status/StatusPage.jsx';
+import LockStatus from './pages/lock-status/LockStatusPage.jsx';
 
 const requireAuth = (nextState, replace) => {
   if (!auth.loggedIn()) {
@@ -24,9 +24,9 @@ export default () => {
   return (
     <Router history={browserHistory}>
       <Route path='/' component={App}>
-        <IndexRedirect to="/status" />
+        <IndexRedirect to="/lock-status" />
         <Route path='/logg-inn' component={Login} />
-		    <Route path='/status' component={StatusPage} onEnter={requireAuth}/>
+		    <Route path='/lock-status' component={LockStatus} onEnter={requireAuth}/>
         <Route path='/medlem/liste' component={MedlemsListe} onEnter={requireAuth}/>
         <Route path='/medlem/legg-til' component={LeggTilMedlem} onEnter={requireAuth}/>
         <Route path='/medlem/endre/:id' component={EndreMedlem} onEnter={requireAuth}/>

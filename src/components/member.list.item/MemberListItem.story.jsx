@@ -1,9 +1,9 @@
 import React from 'react';
-import MemberListItem from '../member.list.item/MemberListItem';
+import MemberListItem from './MemberListItem';
 import { storiesOf, action } from '@kadira/storybook';
-import CenterModule from './CenterModule';
+import CenterModule from '../.stories/CenterModule.jsx';
 
-storiesOf('Member.List.Item', module)
+storiesOf('MemberListItem', module)
   .add('Member Item', () => {
     const props = {
       onDelete: action('Delete member'),

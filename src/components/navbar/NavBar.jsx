@@ -9,7 +9,7 @@ class NavBar extends React.Component {
       <Navbar inverse>
          <Navbar.Header>
            <Navbar.Brand>
-             <Link to='/status'>Hackerspace UI</Link>
+             <Link to='/lock-status'>Hackerspace UI</Link>
            </Navbar.Brand>
            <Navbar.Toggle />
          </Navbar.Header>

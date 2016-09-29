@@ -1,8 +1,8 @@
 import alt from '../alt';
-import StatusActions from '../actions/StatusActions';
+import LockStatusActions from '../actions/LockStatusActions';
 import lockController from '../utils/lockController';
 
-class StatusStore {
+class LockStatusStore {
   constructor() {
     this.log = '';
     this.socketStatus = 'connecting';
@@ -10,7 +10,7 @@ class StatusStore {
     this.lockStatus = {
       isLocked: true
     }
-    this.bindActions(StatusActions);
+    this.bindActions(LockStatusActions);
   }
   onActivateLockBtn(status) {
     this.lockBtnDisabled = false;
@@ -34,4 +34,4 @@ class StatusStore {
   }
 }
 
-export default alt.createStore(StatusStore, 'StatusStore');
+export default alt.createStore(LockStatusStore, 'LockStatusStore');

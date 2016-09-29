@@ -1,9 +1,9 @@
 import React from 'react';
-import MemberForm from '../member.form/MemberForm';
+import MemberForm from './MemberForm';
 import { storiesOf, action } from '@kadira/storybook';
-import CenterModule from './CenterModule';
+import CenterModule from '../.stories/CenterModule.jsx';
 
-storiesOf('Member.Form', module)
+storiesOf('MemberForm', module)
   .add('Add member', () => {
     const props = {
       submit: action('Form submitted'),

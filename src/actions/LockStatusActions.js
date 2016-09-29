@@ -1,7 +1,7 @@
 import alt from '../alt';
 import NotificationActions from './NotificationActions';
 
-class StatusActions {
+class LockStatusActions {
   activateLockBtn(status) {
     return status;
   }
@@ -22,4 +22,4 @@ class StatusActions {
   }
 }
 
-export default alt.createActions(StatusActions);
+export default alt.createActions(LockStatusActions);

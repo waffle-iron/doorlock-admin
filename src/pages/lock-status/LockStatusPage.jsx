@@ -3,23 +3,23 @@ import AltContainer from 'alt-container';
 
 import { Row, Col, Alert } from 'react-bootstrap';
 
-import StatusStore from '../../stores/StatusStore';
-import StatusActions from '../../actions/StatusActions';
+import LockStatusStore from '../../stores/LockStatusStore';
+import LockStatusActions from '../../actions/LockStatusActions';
 
-import StatusLog from '../../components/status.loglist/StatusLog.jsx';
-import LockStatus from '../../components/status.lockstatus/LockStatus.jsx';
+import LockLogStream from '../../components/lock.logstream/LockLogStream.jsx';
+import LockStatus from '../../components/lock.status/LockStatus.jsx';
 
-class StatusContent extends React.Component {
+class LockStatusContent extends React.Component {
   constructor(props) {
     super(props);
     this.lockBtnClick = this.lockBtnClick.bind(this);
   }
   lockBtnClick(isLocked) {
     if(isLocked) {
-      return StatusActions.forceOpen();
+      return LockStatusActions.forceOpen();
     }
     else {
-      return StatusActions.forceClose();
+      return LockStatusActions.forceClose();
     }
   }
   render () {
@@ -43,21 +43,21 @@ class StatusContent extends React.Component {
           />
         </Col>
         <Col md={6}>
-          <StatusLog log={log} />
+          <LockLogStream log={log} />
         </Col>
       </Row>
     )
   }
 }
 
-const StatusPage = (props) => {
+const LockStatusPage = (props) => {
   return (
     <div>
-      <AltContainer store={StatusStore}>
-          <StatusContent />
+      <AltContainer store={LockStatusStore}>
+          <LockStatusContent />
       </AltContainer>
     </div>
   )
 }
 
-export default StatusPage
+export default LockStatusPage

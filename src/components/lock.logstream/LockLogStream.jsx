@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import { Panel } from 'react-bootstrap';
 
-import styles from './StatusLog-style.css';
+import styles from './LockLogStream-style.css';
 
-class StatusLog extends React.Component {
+class LockLogStream extends React.Component {
   componentWillUpdate(nextProps, nextState) {
     if(this.props.log.length) {
       const node = this.refs.scrollBox;
@@ -50,4 +50,4 @@ class StatusLog extends React.Component {
   }
 }
 
-export default StatusLog;
+export default LockLogStream;

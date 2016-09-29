@@ -1,14 +1,14 @@
 import React from 'react';
-import LockStatus from '../status.lockstatus/LockStatus';
+import LockStatus from './LockStatus';
 import { storiesOf, action, linkTo } from '@kadira/storybook';
-import CenterModule from './CenterModule';
+import CenterModule from '../.stories/CenterModule.jsx';
 
-storiesOf('Status.LockStatus', module)
+storiesOf('LockStatus', module)
   .add('locked', () => {
     const props = {
       isLocked: true,
       isLoading: false,
-      lockBtnClick: linkTo('Status.LockStatus', 'open')
+      lockBtnClick: linkTo('LockStatus', 'open')
     }
     return <CenterModule width={800} bgColor='#FFF'><LockStatus {...props} /></CenterModule>
   })
@@ -16,7 +16,7 @@ storiesOf('Status.LockStatus', module)
     const props = {
       isLocked: false,
       isLoading: false,
-      lockBtnClick: linkTo('Status.LockStatus', 'locked')
+      lockBtnClick: linkTo('LockStatus', 'locked')
     }
     return <CenterModule width={800} bgColor='#FFF'><LockStatus {...props} /></CenterModule>
   })
@@ -24,7 +24,7 @@ storiesOf('Status.LockStatus', module)
     const props = {
       isLocked: false,
       isLoading: false,
-      lockBtnClick: linkTo('Status.LockStatus', 'locked'),
+      lockBtnClick: linkTo('LockStatus', 'locked'),
       lockBtnDisabled: true
     }
     return <CenterModule width={800} bgColor='#FFF'><LockStatus {...props} /></CenterModule>

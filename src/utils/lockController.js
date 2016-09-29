@@ -1,4 +1,4 @@
-import StatusActions from '../actions/StatusActions';
+import LockStatusActions from '../actions/LockStatusActions';
 import NotificationActions from '../actions/NotificationActions';
 import io from 'socket.io-client';
 import { baseUrl } from 'config';
@@ -14,10 +14,10 @@ const LockController = {
     _isAuthenticated = !!state;
   },
   _newLogUpdate(log) {
-    StatusActions.logData(log);
+    LockStatusActions.logData(log);
   },
   _newLockStatus(status) {
-    StatusActions.lockStatusUpdate(status);
+    LockStatusActions.lockStatusUpdate(status);
   },
   _checkAuth() {
     return _isAuthenticated;
@@ -28,14 +28,14 @@ const LockController = {
   forceOpen() {
     if( this._checkAuth() ) {
       authSocket.emit('forceOpen', (status) => {
-        StatusActions.activateLockBtn(status);
+        LockStatusActions.activateLockBtn(status);
       });
     }
   },
   forceClose() {
     if( this._checkAuth() ) {
       authSocket.emit('forceClose', (status) => {
-        StatusActions.activateLockBtn(status);
+        LockStatusActions.activateLockBtn(status);
       });
     }
   },
@@ -43,7 +43,7 @@ const LockController = {
 
 
 authSocket.on('connect', () => {
-  StatusActions.setSocketStatus('connected');
+  LockStatusActions.setSocketStatus('connected');
   // Confirmation of authentication event from server
   authSocket.on('authenticated', () => {
     LockController._setAuthentication(true);
@@ -91,11 +91,11 @@ authSocket.on('reconnect_failed', () => {
       label: 'Prøv å koble til',
       callback() {
         authSocket.io.connect();
-        StatusActions.setSocketStatus('connecting');
+        LockStatusActions.setSocketStatus('connecting');
       }
     }
   });
-  StatusActions.setSocketStatus('failed');
+  LockStatusActions.setSocketStatus('failed');
 });
 
 export default LockController;
