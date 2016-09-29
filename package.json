@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Doorlock admin UI",
   "scripts": {
-	"clean": "rimraf static/js static/css/main.css static/css/main.css.map",
+    "clean": "rimraf static/js static/css/main.css static/css/main.css.map",
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack",
     "start": "node devServer.js",
@@ -45,6 +45,8 @@
     "react-notification-system": "^0.2.7",
     "react-router": "^2.4.0",
     "react-router-bootstrap": "^0.23.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.6.0",
     "socket.io-client": "^1.4.6"
   },
   "dependencies": {
