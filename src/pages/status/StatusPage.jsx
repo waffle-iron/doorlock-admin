@@ -6,8 +6,8 @@ import { Row, Col, Alert } from 'react-bootstrap';
 import StatusStore from '../../stores/StatusStore';
 import StatusActions from '../../actions/StatusActions';
 
-import StatusLog from '../status.loglist/StatusLog.jsx';
-import LockStatus from '../status.lockstatus/LockStatus.jsx';
+import StatusLog from '../../components/status.loglist/StatusLog.jsx';
+import LockStatus from '../../components/status.lockstatus/LockStatus.jsx';
 
 class StatusContent extends React.Component {
   constructor(props) {

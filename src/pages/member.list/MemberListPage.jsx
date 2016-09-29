@@ -4,8 +4,8 @@ import AltContainer from 'alt-container';
 import MemberListStore from '../../stores/MemberListStore';
 import MemberListActions from '../../actions/MemberListActions';
 
-import MemberList from '../member.list/MemberList.jsx';
-import ListPagination from '../reusable.list.pagination/ListPagination.jsx';
+import MemberList from '../../components/member.list/MemberList.jsx';
+import ListPagination from '../../components/reusable.list.pagination/ListPagination.jsx';
 import { Row, Col } from 'react-bootstrap';
 
 class MemberListPage extends React.Component {

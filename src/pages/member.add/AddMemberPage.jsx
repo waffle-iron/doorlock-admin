@@ -10,7 +10,7 @@ import StudentIdActions from '../../actions/StudentIdActions';
 import NotificationActions from '../../actions/NotificationActions';
 import tokenErrorHandler from '../../utils/tokenErrorHandler';
 
-import MemberForm from '../member.form/MemberForm.jsx';
+import MemberForm from '../../components/member.form/MemberForm.jsx';
 
 class AddMemberPage extends React.Component {
   constructor(props) {

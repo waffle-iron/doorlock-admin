@@ -10,7 +10,7 @@ import StudentIdStore from '../../stores/StudentIdStore';
 import StudentIdActions from '../../actions/StudentIdActions';
 import NotificationActions from '../../actions/NotificationActions';
 
-import MemberForm from '../member.form/MemberForm.jsx';
+import MemberForm from '../../components/member.form/MemberForm.jsx';
 
 class EditMemberPage extends React.Component {
   constructor(props) {

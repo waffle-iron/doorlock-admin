@@ -4,12 +4,12 @@ import { Router, Route, IndexRedirect, browserHistory } from 'react-router';
 import auth from './utils/auth';
 
 import App from './components/App.jsx';
-import Login from './components/page.login/LoginPage.jsx';
-import MedlemsListe from './components/page.member.list/MemberListPage.jsx';
-import LeggTilMedlem from './components/page.member.add/AddMemberPage.jsx';
-import EndreMedlem from './components/page.member.edit/EditMemberPage.jsx';
-import NotFound from './components/page.notfound/NotFoundPage.jsx';
-import StatusPage from './components/page.status/StatusPage.jsx';
+import Login from './pages/login/LoginPage.jsx';
+import MedlemsListe from './pages/member.list/MemberListPage.jsx';
+import LeggTilMedlem from './pages/member.add/AddMemberPage.jsx';
+import EndreMedlem from './pages/member.edit/EditMemberPage.jsx';
+import NotFound from './pages/notfound/NotFoundPage.jsx';
+import StatusPage from './pages/status/StatusPage.jsx';
 
 const requireAuth = (nextState, replace) => {
   if (!auth.loggedIn()) {
