@@ -8,7 +8,7 @@ import {
   LOCK_SET_AUTH_STATUS,
   LOCK_SET_SOCKET_STATUS } from '../constants'
 
-const initialState = {
+export const initialState = {
   isAuthenticated: false,
   log: '',
   socketStatus: 'connecting',
