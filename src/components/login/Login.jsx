@@ -5,6 +5,7 @@ import { Form } from 'formsy-react';
 import { Button } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import auth from '../../utils/auth';
+import { authenticateLockSocket } from '../../redux-Actions/lockStatusActions';
 
 import styles from './Login-style.css';
 
@@ -40,6 +41,7 @@ class Login extends React.Component {
   }
   onSubmit(model) {
     const { submit, location } = this.props;
+    const { store: { dispatch } } = this.context;
 
     if(submit) {
       submit(model);
@@ -49,6 +51,10 @@ class Login extends React.Component {
     auth.login(model, (status) => {
       if( status !== true )
         return this.setState({ errorMsg: status });
+
+      // Authenticate socket.io handler for the locksystem
+      dispatch(authenticateLockSocket(localStorage.token));
+
       if (location.state && location.state.nextPathname) {
         this.props.router.replace(location.state.nextPathname);
       } else {
@@ -102,6 +108,10 @@ class Login extends React.Component {
       </div>
     );
   }
+}
+
+Login.contextTypes = {
+  store: React.PropTypes.object
 }
 
 export default withRouter(Login);

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { apiBaseUrl } from 'config';
 import api from './api';
-import lockController from './lockController';
 
 module.exports = {
   login(loginObj, callback) {
@@ -14,7 +13,6 @@ module.exports = {
     .then( (response) => {
       if( response.data.success ) {
         localStorage.token = response.data.token;
-        lockController.authenticate();
         api.defaults.headers['x-access-token'] = response.data.token;
         if(callback) callback(true);
         this.onChange(true);

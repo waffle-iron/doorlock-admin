@@ -1,63 +1,58 @@
 import React, { PropTypes } from 'react';
-import AltContainer from 'alt-container';
-
 import { Row, Col, Alert } from 'react-bootstrap';
-
-import LockStatusStore from '../../stores/LockStatusStore';
-import LockStatusActions from '../../actions/LockStatusActions';
+import { connect } from 'react-redux';
+import { lockForceOpen, lockForceClose } from '../../redux-Actions/lockStatusActions';
 
 import LockLogStream from '../../components/lock.logstream/LockLogStream.jsx';
 import LockStatus from '../../components/lock.status/LockStatus.jsx';
 
-class LockStatusContent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.lockBtnClick = this.lockBtnClick.bind(this);
-  }
-  lockBtnClick(isLocked) {
-    if(isLocked) {
-      return LockStatusActions.forceOpen();
-    }
-    else {
-      return LockStatusActions.forceClose();
-    }
-  }
-  render () {
-    const { lockStatus: { isLocked }, log, socketStatus, lockBtnDisabled } = this.props;
-    const doorlockState = socketStatus === 'connecting';
+const LockStatusContent = (props) => {
+  const {
+    isLocked,
+    isLoading,
+    log,
+    socketStatus,
+    lockBtnDisabled,
+    lockBtnClick } = props;
 
-    if( socketStatus === 'failed' ) {
-      return (
-        <Alert bsStyle="danger"><strong>Dørlåsserveren svarer ikke</strong></Alert>
-      )
-    }
-
-    return (
-      <Row>
-        <Col md={6}>
-          <LockStatus
-            lockBtnClick={this.lockBtnClick}
-            isLocked={isLocked}
-            isLoading={doorlockState}
-            lockBtnDisabled={lockBtnDisabled}
-          />
-        </Col>
-        <Col md={6}>
-          <LockLogStream log={log} />
-        </Col>
-      </Row>
-    )
+  if( socketStatus === 'failed' ) {
+    return <Alert bsStyle="danger"><strong>Dørlåsserveren svarer ikke</strong></Alert>;
   }
-}
 
-const LockStatusPage = (props) => {
   return (
-    <div>
-      <AltContainer store={LockStatusStore}>
-          <LockStatusContent />
-      </AltContainer>
-    </div>
+    <Row>
+      <Col md={6}>
+        <LockStatus
+          lockBtnClick={lockBtnClick}
+          isLocked={isLocked}
+          isLoading={isLoading}
+          lockBtnDisabled={lockBtnDisabled}
+        />
+      </Col>
+      <Col md={6}>
+        <LockLogStream log={log} />
+      </Col>
+    </Row>
   )
 }
 
-export default LockStatusPage
+const mapStateToProps = ({ lockStatus }) => ({
+  isLocked: lockStatus.isLocked,
+  isLoading: lockStatus.socketStatus === 'connecting',
+  socketStatus: lockStatus.socketStatus,
+  lockBtnDisabled: lockStatus.lockBtnDisabled,
+  log: lockStatus.log
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  lockBtnClick(isLocked) {
+    isLocked ? dispatch(lockForceOpen()) : dispatch(lockForceClose());
+  }
+})
+
+const LockStatusPage = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LockStatusContent);
+
+export default LockStatusPage;

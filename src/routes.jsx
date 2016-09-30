@@ -20,18 +20,17 @@ const requireAuth = (nextState, replace) => {
   }
 }
 
-export default () => {
-  return (
-    <Router history={browserHistory}>
-      <Route path='/' component={App}>
-        <IndexRedirect to="/lock-status" />
-        <Route path='/logg-inn' component={Login} />
-		    <Route path='/lock-status' component={LockStatus} onEnter={requireAuth}/>
-        <Route path='/medlem/liste' component={MedlemsListe} onEnter={requireAuth}/>
-        <Route path='/medlem/legg-til' component={LeggTilMedlem} onEnter={requireAuth}/>
-        <Route path='/medlem/endre/:id' component={EndreMedlem} onEnter={requireAuth}/>
-        <Route path='*' component={NotFound} />
-      </Route>
-    </Router>
-  );
-}
+
+export default () => (
+  <Router history={browserHistory}>
+    <Route path='/' component={App}>
+      <IndexRedirect to="/lock-status" />
+      <Route path='/logg-inn' component={Login} />
+	    <Route path='/lock-status' component={LockStatus} onEnter={requireAuth}/>
+      <Route path='/medlem/liste' component={MedlemsListe} onEnter={requireAuth}/>
+      <Route path='/medlem/legg-til' component={LeggTilMedlem} onEnter={requireAuth}/>
+      <Route path='/medlem/endre/:id' component={EndreMedlem} onEnter={requireAuth}/>
+      <Route path='*' component={NotFound} />
+    </Route>
+  </Router>
+);
