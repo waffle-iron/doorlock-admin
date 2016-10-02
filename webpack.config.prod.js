@@ -9,6 +9,7 @@ module.exports = {
   stats: { children: false },
   devtool: 'source-map',
   entry: [
+    'babel-polyfill',
     './src/index'
   ],
   output: {
