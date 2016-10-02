@@ -4,14 +4,14 @@ import { Button } from 'react-bootstrap';
 
 import styles from './AddStudentCardId-style.css';
 
-const AddStudentCardId = ({ actions, studId, isLoading }) => {
+const AddStudentCardId = ({ scanCard, studId, isLoading }) => {
   const btnTxt = studId ? 'Scan nytt kort' : 'Scan kort';
   return (
     <div className='form-group row'>
       <label className='control-label col-sm-3'>Studentkortid</label>
       <div className='col-sm-9'>
         { studId ? <h5>{studId}</h5> : '' }
-        <Button bsStyle='info' onClick={actions.scanCard}
+        <Button bsStyle='info' onClick={scanCard}
           disabled={isLoading}
           >{ isLoading ? 'Venter på scanning...' : btnTxt }</Button>
       </div>

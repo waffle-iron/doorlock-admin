@@ -39,8 +39,11 @@ class MemberForm extends React.Component {
   render () {
     const { defaultValues, changeMode, memberDontExist } = this.props;
     const { isLoading, failedId } = this.props;
-    const { studentIdProps, actions } = this.props;
-
+    const { studentIdProps, scanCard } = this.props;
+    const studIdProps = {
+      ...studentIdProps,
+      scanCard
+    }
     const addEdit = changeMode ? 'Endre' : 'Legg til';
     const header = `${addEdit} medlem`;
 
@@ -146,7 +149,7 @@ class MemberForm extends React.Component {
             }}
             />
 
-          <AddStudentCardId {...studentIdProps} actions={actions}/>
+          <AddStudentCardId {...studIdProps} />
 
         </fieldset>
 

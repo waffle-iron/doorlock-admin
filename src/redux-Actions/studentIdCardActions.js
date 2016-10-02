@@ -13,3 +13,13 @@ export const setStudentId = (id) => ({
 export const scanIdCard = () => ({
   type: SCAN_ID_CARD
 })
+
+export const scanIdCardSuccess = (id) => ({
+  type: SCAN_ID_CARD_SUCCESS,
+  id
+})
+
+export const scanIdCardError = (error) => ({
+  type: SCAN_ID_CARD_ERROR,
+  error
+})
