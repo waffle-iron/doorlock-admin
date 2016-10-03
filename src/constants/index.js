@@ -10,7 +10,10 @@ export const LOCK_SET_AUTH_STATUS = 'LOCK_SET_AUTH_STATUS';
 export const LOCK_SET_SOCKET_STATUS = 'LOCK_SET_SOCKET_STATUS';
 
 // studentIdCard constants
-export const SET_NEW_CARD_ID = 'SET_NEW_ID'; 
+export const SET_NEW_CARD_ID = 'SET_NEW_ID';
 export const SCAN_ID_CARD = 'SCAN_ID_CARD';
 export const SCAN_ID_CARD_SUCCESS = 'SCAN_ID_CARD_SUCCESS';
 export const SCAN_ID_CARD_ERROR = 'SCAN_ID_CARD_ERROR';
+
+// notification constants
+export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
