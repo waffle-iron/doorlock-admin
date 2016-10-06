@@ -23,7 +23,7 @@ export function* fetchScannedId(fetchId, waitForTimeout, action) {
         }
     }
     catch (err) {
-        yield put(scanIdCardError({...err}));
+        yield put(scanIdCardError(err));
     }
 
 }

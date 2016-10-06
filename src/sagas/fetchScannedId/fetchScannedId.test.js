@@ -55,10 +55,10 @@ describe('fetchScannedId saga', () => {
     it('should dispatch SCAN_ID_CARD_ERROR on error', () => {
       const errMsg = 'Oops';
 
-      ret = generator.throw(errMsg);
+      ret = generator.throw(new Error(errMsg));
       expect(ret.value).toEqual(
         put(
-          scanIdCardError({ message: errMsg})
+          scanIdCardError(new Error(errMsg))
         )
       );
     });
