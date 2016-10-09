@@ -39,6 +39,7 @@
     "formsy-react-components": "^0.7.1",
     "history": "^2.1.1",
     "jest": "^16.0.1",
+    "lodash": "^4.16.4",
     "normalizr": "^2.2.1",
     "react": "^15.0.2",
     "react-bootstrap": "^0.29.4",
