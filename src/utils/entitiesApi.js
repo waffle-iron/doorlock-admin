@@ -14,11 +14,16 @@ const callApi = (endpoint, filter, schema) => {
     .then(
       (data) => {
         if(!data.rows) {
-          return { ...normalize(data, schema)}
+          return { response: {
+            ...normalize(data, schema)}
+          }
         }
-        return { ...normalize(data.rows, schema), count: data.count }
+        return { response: {
+          ...normalize(data.rows, schema),
+          count: data.count }
+        }
       },
-      (error) => ({ message: error.data ? error.data.message : error.message})
+      (error) => ({ error: error.data ? error.data.message : error.message})
     )
 }
 
