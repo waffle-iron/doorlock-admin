@@ -1,50 +1,62 @@
 import React, { PropTypes } from 'react';
-import AltContainer from 'alt-container';
-
-import MemberListStore from '../../stores/MemberListStore';
-import MemberListActions from '../../actions/MemberListActions';
 
 import MemberList from '../../components/member.list/MemberList.jsx';
-import ListPagination from '../../components/reusable.list.pagination/ListPagination.jsx';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
+
+import { connect } from 'react-redux';
+import {
+  loadMemberListPage,
+  loadMoreMembersOnListPage } from '../../redux-Actions/entitiesActions';
 
 class MemberListPage extends React.Component {
   componentWillMount() {
-    MemberListActions.getMembers();
+    this.props.loadMemberListPage();
   }
   render () {
+    const {
+      memberList,
+      isLoading,
+      deleteMember,
+      nextPageExists,
+      loadMoreMembersOnListPage } = this.props;
     return (
       <Row>
-        <AltContainer
-          stores={[MemberListStore]}
-          inject={{
-            memberList: () => MemberListStore.getState().memberList,
-            isLoading: () => MemberListStore.getState().isLoading
-          }}
-          actions={(props) => ({
-              deleteMember: (delMember, e) => {
-                e.preventDefault();
-                MemberListActions.deleteMember(delMember);
-              }
-          })}
-        >
-          <MemberList />
-        </AltContainer>
-        <AltContainer
-          stores={[MemberListStore]}
-          inject={{
-            currentPage: () => MemberListStore.getState().listState.currentPage,
-            pages: () => MemberListStore.getState().listState.pages
-          }}
-          actions={(props) => ({
-            onChangeSelect: (newPage) => MemberListActions.changePage(newPage)
-          })}
-        >
-          <ListPagination />
-        </AltContainer>
+        <MemberList
+          memberList={memberList}
+          isLoading={isLoading}
+          deleteMember={deleteMember}
+          />
+        { nextPageExists ?
+          <Button onClick={loadMoreMembersOnListPage}>Load more</Button>
+          : '' }
       </Row>
     );
   }
 }
 
-export default MemberListPage;
+const mapStateToProps = (state) => {
+  const memberPagination = state.pagination.pageScrolls.members || { ids: [] };
+  const users = state.entities.users;
+  const memberList = memberPagination.ids.map( (id) => users[id] );
+
+  return {
+    memberList,
+    isLoading: memberPagination.isLoading,
+    nextPageExists: memberPagination.nextPageExists
+  }
+}
+
+const MemberPage = connect(
+  mapStateToProps,
+  {
+    loadMemberListPage,
+    loadMoreMembersOnListPage,
+    deleteMember: (id, e) => {
+      e.preventDefault();
+      console.log(id);
+    }
+  }
+)(MemberListPage)
+
+
+export default MemberPage;
