@@ -28,6 +28,6 @@ export function* fetchScannedId(fetchId, waitForTimeout, action) {
 
 }
 
-export default function* watchFetchedScannedId() {
+export function* watchFetchedScannedId() {
   yield* takeLatest(SCAN_ID_CARD, fetchScannedId, idFetcher, 12000);
 }

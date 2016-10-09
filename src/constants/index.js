@@ -1,3 +1,18 @@
+const REQUEST = 'REQUEST'
+const SUCCESS = 'SUCCESS'
+const FAILURE = 'FAILURE'
+
+const createRequestTypes = (base) => {
+  return [REQUEST, SUCCESS, FAILURE].reduce((acc, type) => {
+		acc[type] = `${base}_${type}`
+		return acc
+	}, {})
+}
+
+export const MEMBERS = createRequestTypes('MEMBERS');
+
+export const LOAD_LIST_PAGE = 'LOAD_LIST_PAGE';
+export const LOAD_MORE_ON_LIST_PAGE = 'LOAD_MORE_ON_LIST_PAGE';
 
 // Lockstatus constants
 export const LOCK_SOCKET_AUTHENTICATE = 'LOCK_SOCKET_AUTHENTICATE';
