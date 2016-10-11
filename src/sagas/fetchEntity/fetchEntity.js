@@ -1,6 +1,6 @@
 import { take, put, call, fork, select } from 'redux-saga/effects';
 import { delay, takeLatest } from 'redux-saga';
-import { members } from '../../redux-Actions/entitiesActions';
+import * as entitiesActions from '../../redux-Actions/entitiesActions';
 import { fetchUsers } from '../../utils/entitiesApi';
 import { getPageList } from '../../reducers/selectors';
 import {
@@ -18,7 +18,7 @@ function* fetchEntity(entity, apiFn, id, filter) {
 }
 
 export const pageService = {
-  members: fetchEntity.bind(null, members, fetchUsers)
+  members: fetchEntity.bind(null, entitiesActions.members, fetchUsers)
 }
 
 function* loadPageList(page, loadMore) {
@@ -35,7 +35,7 @@ function* loadPageList(page, loadMore) {
 
 function* filterPageList({page, filter}) {
   yield call(delay, 1200)
-  yield put( members.filter(page, filter) )
+  yield put( entitiesActions[page].filter(page, filter) )
   yield fork(loadPageList, page)
 }
 
