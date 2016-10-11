@@ -1,1 +1,1 @@
-export const getList = (state, list) => state.pagination.pageScrolls[list];
+export const getPageList = (state, page) => state.pagination[page];

@@ -1,10 +1,12 @@
 import { take, put, call, fork, select } from 'redux-saga/effects';
+import { delay, takeLatest } from 'redux-saga';
 import { members } from '../../redux-Actions/entitiesActions';
 import { fetchUsers } from '../../utils/entitiesApi';
-import { getList } from '../../reducers/selectors';
+import { getPageList } from '../../reducers/selectors';
 import {
-  LOAD_LIST_PAGE,
-  LOAD_MORE_ON_LIST_PAGE } from '../../constants';
+  LOAD_PAGE_LIST,
+  FILTER_PAGE_LIST,
+  LOAD_MORE_ON_PAGE_LIST } from '../../constants';
 
 function* fetchEntity(entity, apiFn, id, filter) {
   yield put( entity.request(id) )
@@ -15,34 +17,42 @@ function* fetchEntity(entity, apiFn, id, filter) {
     yield put( entity.failure(id, error) )
 }
 
-export const lists = {
+export const pageService = {
   members: fetchEntity.bind(null, members, fetchUsers)
-
 }
 
-function* loadListPage(list, loadMore) {
-  const pagination = yield select(getList, list);
-  if(!pagination || !pagination.pageCount || loadMore ) {
-    if(pagination) {
-      const { filter, nextPage } = pagination;
-      yield call(lists[list], list, { ...filter, ...nextPage })
-    }
-    else {
-      yield call(lists[list], list, { limit: 10 })
-    }
+function* loadPageList(page, loadMore) {
+  const pagination = yield select(getPageList, page);
+  const { filter, limit, nextPageOffset } = pagination;
+  if(!pagination.pageCount || loadMore ) {
+      yield call(pageService[page], page, {
+        ...filter,
+        offset: nextPageOffset,
+        limit
+      })
   }
 }
 
-export function* watchLoadListPage() {
+function* filterPageList({page, filter}) {
+  yield call(delay, 1200)
+  yield put( members.filter(page, filter) )
+  yield fork(loadPageList, page)
+}
+
+export function* watchLoadPageList() {
   while(true) {
-    const { list } = yield take(LOAD_LIST_PAGE)
-    yield fork(loadListPage, list)
+    const { page } = yield take(LOAD_PAGE_LIST)
+    yield fork(loadPageList, page)
   }
 }
 
-export function* watchLoadMoreOnListPage() {
+export function* watchFilterPageList() {
+    yield takeLatest(FILTER_PAGE_LIST, filterPageList)
+}
+
+export function* watchLoadMoreOnPageList() {
   while(true) {
-    const { list } = yield take(LOAD_MORE_ON_LIST_PAGE)
-    yield fork(loadListPage, list, true)
+    const { page } = yield take(LOAD_MORE_ON_PAGE_LIST)
+    yield fork(loadPageList, page, true)
   }
 }

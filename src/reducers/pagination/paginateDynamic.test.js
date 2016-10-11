@@ -1,7 +1,7 @@
-import paginate from './paginate';
+import paginate from './paginateDynamic';
 import merge from 'lodash/merge';
 
-describe('paginate reducer creator', () => {
+describe('paginateDynamic reducer creator', () => {
   const inputObj = {
     types: ['request', 'success', 'failure'],
     mapActionToKey: (action) => action.name

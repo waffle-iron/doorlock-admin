@@ -1,9 +1,11 @@
 const REQUEST = 'REQUEST'
+const FILTER = 'FILTER'
 const SUCCESS = 'SUCCESS'
 const FAILURE = 'FAILURE'
 
+
 const createRequestTypes = (base) => {
-  return [REQUEST, SUCCESS, FAILURE].reduce((acc, type) => {
+  return [REQUEST, FILTER, SUCCESS, FAILURE].reduce((acc, type) => {
 		acc[type] = `${base}_${type}`
 		return acc
 	}, {})
@@ -11,8 +13,9 @@ const createRequestTypes = (base) => {
 
 export const MEMBERS = createRequestTypes('MEMBERS');
 
-export const LOAD_LIST_PAGE = 'LOAD_LIST_PAGE';
-export const LOAD_MORE_ON_LIST_PAGE = 'LOAD_MORE_ON_LIST_PAGE';
+export const LOAD_PAGE_LIST = 'LOAD_PAGE_LIST';
+export const FILTER_PAGE_LIST = 'FILTER_PAGE_LIST';
+export const LOAD_MORE_ON_PAGE_LIST = 'LOAD_MORE_ON_PAGE_LIST';
 
 // Lockstatus constants
 export const LOCK_SOCKET_AUTHENTICATE = 'LOCK_SOCKET_AUTHENTICATE';

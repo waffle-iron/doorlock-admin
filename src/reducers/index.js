@@ -3,7 +3,7 @@ import lockStatus from './lockStatus';
 import studentIdCard from './studentIdCard';
 import merge from 'lodash/merge';
 import { MEMBERS } from '../constants';
-import paginate from './pagination/paginate';
+import paginatePage from './pagination/paginatePage';
 
 // Updates an entity cache in response to any action with response.entities.
 const entities = (state = { users: {} }, action) => {
@@ -15,10 +15,10 @@ const entities = (state = { users: {} }, action) => {
 }
 
 const pagination = combineReducers({
-  pageScrolls: paginate({
-    mapActionToKey: (action) => action.list,
+  members: paginatePage({
     types: [
       MEMBERS.REQUEST,
+      MEMBERS.FILTER,
       MEMBERS.SUCCESS,
       MEMBERS.FAILURE
     ]
