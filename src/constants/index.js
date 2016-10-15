@@ -3,7 +3,6 @@ const FILTER = 'FILTER'
 const SUCCESS = 'SUCCESS'
 const FAILURE = 'FAILURE'
 
-
 const createRequestTypes = (base) => {
   return [REQUEST, FILTER, SUCCESS, FAILURE].reduce((acc, type) => {
 		acc[type] = `${base}_${type}`
@@ -11,11 +10,28 @@ const createRequestTypes = (base) => {
 	}, {})
 }
 
-export const MEMBERS = createRequestTypes('MEMBERS');
+const CREATE = 'CREATE'
+const EDIT = 'EDIT'
+const DELETE = 'DELETE'
+
+const createMutationTypes = (base) => {
+  return [CREATE, EDIT, DELETE].reduce((acc, type) => {
+    [REQUEST, SUCCESS, FAILURE].forEach((reqType) => {
+      acc[`${type}_${reqType}`] = `${base}_${type}_${reqType}`
+    })
+		return acc
+	}, {})
+}
+
+export const MEMBERS = {
+  ...createRequestTypes('MEMBERS'),
+  ...createMutationTypes('MEMBERS')
+}
 
 export const LOAD_PAGE_LIST = 'LOAD_PAGE_LIST';
 export const FILTER_PAGE_LIST = 'FILTER_PAGE_LIST';
 export const LOAD_MORE_ON_PAGE_LIST = 'LOAD_MORE_ON_PAGE_LIST';
+export const DELETE_ENTITY_ITEM = 'DELETE_ENTITY_ITEM';
 
 // Lockstatus constants
 export const LOCK_SOCKET_AUTHENTICATE = 'LOCK_SOCKET_AUTHENTICATE';

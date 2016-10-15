@@ -7,14 +7,20 @@ import union from 'lodash/union';
 // Creates a reducer managing pagination, given the action types to handle,
 // and a function telling how to extract the key from an action.
 export default function paginatePage({ types, perPage = 10 }) {
-  if (!Array.isArray(types) || types.length !== 4) {
-    throw new Error('Expected types to be an array of four elements.');
+  if (!Array.isArray(types) || types.length !== 6) {
+    throw new Error('Expected types to be an array of six elements.');
   }
   if (!types.every((t) => typeof t === 'string')) {
     throw new Error('Expected types to be strings.');
   }
 
-  const [ requestType, filterType, successType, failureType ] = types;
+  const [
+    requestType,
+    filterType,
+    successType,
+    failureType,
+    createItemSuccessType,
+    deleteItemSuccessType ] = types;
 
   return (state = {
     pages: 0,
@@ -57,6 +63,16 @@ export default function paginatePage({ types, perPage = 10 }) {
         return merge({}, state, {
           isLoading: false
         })
+      case createItemSuccessType:
+        return {
+          ...state,
+          ids: [action.response.result[0], ...state.ids]
+        }
+      case deleteItemSuccessType:
+        return {
+          ...state,
+          ids: state.ids.filter( (id) => id !== action.deleteId )
+        }
       default:
         return state
     }

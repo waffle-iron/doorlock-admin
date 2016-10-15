@@ -1,31 +1,5 @@
-import api from './api';
-import Promise from 'bluebird';
-import { Schema, arrayOf, normalize } from 'normalizr';
-
-// Generic api abstraction for fetching entities
-const callApi = (endpoint, filter, schema) => {
-  return api.get(endpoint,{ params: filter })
-    .then( (response) => {
-      if(response.data.success) {
-        return response.data.data;
-      }
-      Promise.reject(response.data)
-    })
-    .then(
-      (data) => {
-        if(!data.rows) {
-          return { response: {
-            ...normalize(data, schema)}
-          }
-        }
-        return { response: {
-          ...normalize(data.rows, schema),
-          count: data.count }
-        }
-      },
-      (error) => ({ error: error.data ? error.data.message : error.message})
-    )
-}
+import { callApi } from './api';
+import { Schema, arrayOf } from 'normalizr';
 
 // Schemas for Github API responses.
 const userSchema = new Schema('users', {
@@ -54,12 +28,13 @@ const transactionSchemaArray = arrayOf(transactionSchema);
 const productSchemaArray = arrayOf(productSchema);
 const slotSchemaArray = arrayOf(slotSchema);
 
-// Entity data fetchers
-export const fetchUser = (id) => callApi(`/user/findById/${id}`, {}, userSchema);
-export const fetchUsers = (filter) => callApi('/user', filter, userSchemaArray);
+// Entity api calls
+export const fetchUser = (id) => callApi.get(`/user/findById/${id}`, {}, userSchema);
+export const fetchUsers = (filter) => callApi.get('/user', filter, userSchemaArray);
+export const deleteUser = (id) => callApi.delete(`/user/delete/${id}`, id);
 
-export const fetchProduct = (id) => callApi(`/product/findById/${id}`, {}, productSchema);
-export const fetchProducts = (filter) => callApi('/product', filter, productSchemaArray);
+export const fetchProduct = (id) => callApi.get(`/product/findById/${id}`, {}, productSchema);
+export const fetchProducts = (filter) => callApi.get('/product', filter, productSchemaArray);
 
-export const fetchTransactions = (filter) => callApi('/transaction', filter, transactionSchemaArray);
-export const fetchSlots = (filter) => callApi('/slot', filter, slotSchemaArray);
+export const fetchTransactions = (filter) => callApi.get('/transaction', filter, transactionSchemaArray);
+export const fetchSlots = (filter) => callApi.get('/slot', filter, slotSchemaArray);

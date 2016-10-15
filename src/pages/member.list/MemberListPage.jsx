@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 import {
   loadMemberPageList,
   filterMemberPageList,
-  loadMoreMembersOnPageList } from '../../redux-Actions/entitiesActions';
+  loadMoreMembersOnPageList,
+  deleteMember } from '../../redux-Actions/entitiesActions';
 
 class MemberListPage extends React.Component {
   componentWillMount() {
@@ -72,10 +73,7 @@ const MemberPage = connect(
     loadMemberPageList,
     filterMemberPageList,
     loadMoreMembersOnPageList,
-    deleteMember: (id, e) => {
-      e.preventDefault();
-      console.log(id);
-    }
+    deleteMember
   }
 )(MemberListPage)
 

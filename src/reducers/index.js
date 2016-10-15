@@ -10,7 +10,6 @@ const entities = (state = { users: {} }, action) => {
   if (action.response && action.response.entities) {
     return merge({}, state, action.response.entities);
   }
-
   return state;
 }
 
@@ -20,7 +19,9 @@ const pagination = combineReducers({
       MEMBERS.REQUEST,
       MEMBERS.FILTER,
       MEMBERS.SUCCESS,
-      MEMBERS.FAILURE
+      MEMBERS.FAILURE,
+      MEMBERS.CREATE_SUCCESS,
+      MEMBERS.DELETE_SUCCESS
     ]
   })
 })

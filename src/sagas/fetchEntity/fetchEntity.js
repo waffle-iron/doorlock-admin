@@ -1,10 +1,11 @@
 import { take, put, call, fork, select } from 'redux-saga/effects';
 import { delay, takeLatest } from 'redux-saga';
 import * as entitiesActions from '../../redux-Actions/entitiesActions';
-import { fetchUsers } from '../../utils/entitiesApi';
+import { fetchUsers, deleteUser } from '../../utils/entitiesApi';
 import { getPageList } from '../../reducers/selectors';
 import {
   LOAD_PAGE_LIST,
+  DELETE_ENTITY_ITEM,
   FILTER_PAGE_LIST,
   LOAD_MORE_ON_PAGE_LIST } from '../../constants';
 
@@ -17,15 +18,25 @@ function* fetchEntity(entity, apiFn, id, filter) {
     yield put( entity.failure(id, error) )
 }
 
+
 export const pageService = {
-  members: fetchEntity.bind(null, entitiesActions.members, fetchUsers)
+  members: {
+    fetch: fetchEntity.bind(null, entitiesActions.members, fetchUsers),
+    delete: fetchEntity.bind(null, entitiesActions.members.delete, deleteUser)
+  }
+}
+
+function* deleteEntityItem({ page, deleteId }) {
+  if( !isNaN(deleteId) ) {
+    yield call(pageService[page].delete, page, deleteId)
+  }
 }
 
 function* loadPageList(page, loadMore) {
   const pagination = yield select(getPageList, page);
   const { filter, limit, nextPageOffset } = pagination;
   if(!pagination.pageCount || loadMore ) {
-      yield call(pageService[page], page, {
+      yield call(pageService[page].fetch, page, {
         ...filter,
         offset: nextPageOffset,
         limit
@@ -47,7 +58,7 @@ export function* watchLoadPageList() {
 }
 
 export function* watchFilterPageList() {
-    yield takeLatest(FILTER_PAGE_LIST, filterPageList)
+  yield takeLatest(FILTER_PAGE_LIST, filterPageList)
 }
 
 export function* watchLoadMoreOnPageList() {
@@ -55,4 +66,8 @@ export function* watchLoadMoreOnPageList() {
     const { page } = yield take(LOAD_MORE_ON_PAGE_LIST)
     yield fork(loadPageList, page, true)
   }
+}
+
+export function* watchDeleteEntityItem() {
+  yield takeLatest(DELETE_ENTITY_ITEM, deleteEntityItem)
 }

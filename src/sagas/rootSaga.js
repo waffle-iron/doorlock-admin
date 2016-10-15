@@ -3,13 +3,15 @@ import { watchFetchedScannedId } from './fetchScannedId/fetchScannedId'
 import {
   watchLoadPageList,
   watchFilterPageList,
-  watchLoadMoreOnPageList } from './fetchEntity/fetchEntity'
+  watchLoadMoreOnPageList,
+  watchDeleteEntityItem } from './fetchEntity/fetchEntity'
 
 export default function* rootSaga() {
   yield [
     fork(watchFetchedScannedId),
     fork(watchLoadPageList),
     fork(watchFilterPageList),
-    fork(watchLoadMoreOnPageList)
+    fork(watchLoadMoreOnPageList),
+    fork(watchDeleteEntityItem)
   ]
 }
