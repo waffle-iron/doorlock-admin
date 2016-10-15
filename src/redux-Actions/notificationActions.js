@@ -1,9 +1,12 @@
 import { ADD_NOTIFICATION } from '../constants';
 
+let notId = 0
+
 const notificationCreator = (notification, level) => ({
   type: ADD_NOTIFICATION,
   notification: {
     level,
+    uid: notId++,
     ...notification
   }
 });

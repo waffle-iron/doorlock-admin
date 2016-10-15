@@ -6,20 +6,32 @@ export default class Notifications extends React.Component {
     constructor() {
       super()
       this.onNotificationChange = this.onNotificationChange.bind(this)
+      this.notification = {}
     }
     componentWillUnmount() {
-        NotificationStore.unlisten(this.onNotificationChange)
+      this.unsubscribe()
     }
     componentDidMount() {
-        NotificationStore.listen(this.onNotificationChange)
+      const { store } = this.context;
+      this.unsubscribe = store.subscribe(this.onNotificationChange)
     }
-    /** Usage: NotificationActions.[success,error,warning,info] */
+    selector(state) {
+      return state.notification.notification
+    }
     onNotificationChange() {
-        let notification = NotificationStore.getState().notification
-        this.refs.notificationSystem.addNotification(notification)
+      const { store: { getState } } = this.context;
+      const oldNotificationId = this.notification.uid
+      this.notification = this.selector(getState())
+
+      if(oldNotificationId !== this.notification.uid) {
+        this.refs.notificationSystem.addNotification(this.notification)
+      }
     }
     render() {
-        return <NotificationSystem ref='notificationSystem'/>
+      return <NotificationSystem ref='notificationSystem'/>
     }
+}
 
+Notifications.contextTypes = {
+  store: React.PropTypes.object
 }

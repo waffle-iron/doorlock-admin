@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import lockStatus from './lockStatus';
+import notification from './notification';
 import studentIdCard from './studentIdCard';
 import merge from 'lodash/merge';
 import { MEMBERS } from '../constants';
@@ -29,6 +30,7 @@ const pagination = combineReducers({
 const app = combineReducers({
   entities,
   pagination,
+  notification,
   lockStatus,
   studentIdCard
 });

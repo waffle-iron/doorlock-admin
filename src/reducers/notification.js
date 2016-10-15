@@ -1,7 +1,7 @@
 import { ADD_NOTIFICATION } from '../constants';
 
 export const initialState = {
-  notification: null
+  notification: {}
 }
 
 const notification = (state = initialState, action) => {
