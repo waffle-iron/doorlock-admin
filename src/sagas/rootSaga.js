@@ -4,7 +4,7 @@ import {
   watchLoadPageList,
   watchFilterPageList,
   watchLoadMoreOnPageList,
-  watchDeleteEntityItem } from './fetchEntity/fetchEntity'
+  watchDeleteEntityItem } from './pageLists';
 
 export default function* rootSaga() {
   yield [
