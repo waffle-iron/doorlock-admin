@@ -1,4 +1,5 @@
 import NotificationActions from '../actions/NotificationActions';
+import { addNotification } from '../redux-Actions/notificationActions';
 import io from 'socket.io-client';
 import { baseUrl } from 'config';
 import tokenErrorHandler from './tokenErrorHandler';
@@ -10,7 +11,8 @@ import {
   activateLockBtn,
   lockStateUpdate,
   lockForceOpen,
-  lockForceClose } from '../redux-Actions/lockStatusActions';
+  lockForceClose,
+  lockSocketTokenError } from '../redux-Actions/lockStatusActions';
 
 let socket = null;
 
@@ -66,24 +68,24 @@ const lockControl = ({ dispatch }) => {
       dispatch(setLockAuthStatus(false));
 
       if (err.message === 'jwt expired' && err.data.code == 'invalid_token') {
-        tokenErrorHandler({ status: 401 }, '/status');
+        dispatch(lockSocketTokenError(401,'/lock-status'))
       }
       else {
-        tokenErrorHandler({ status: 403 }, '/status');
+        dispatch(lockSocketTokenError(403,'/lock-status'))
       }
     });
   });
 
   socket.on('connect_error', () => {
-    NotificationActions.warning({
+    dispatch( addNotification.warning({
       title: 'Tilkoblingsfeil dørlås',
       message: 'Fikk ikke kontakt med dørlåsserver. Prøver på nytt..',
       autoDismiss: 2
-    });
+    }));
   });
 
   socket.on('reconnect_failed', () => {
-    NotificationActions.error({
+    dispatch( addNotification.error({
       title: 'Tilkoblingsfeil dørlås',
       message: 'Får ikke kontakt med dørlåsserver',
       autoDismiss: 0,
@@ -94,7 +96,7 @@ const lockControl = ({ dispatch }) => {
           dispatch(setLockSocketStatus('connecting'));
         }
       }
-    });
+    }));
     dispatch(setLockSocketStatus('failed'));
   });
 

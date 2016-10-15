@@ -6,6 +6,7 @@ import createSagaMiddleware from 'redux-saga'
 import Routes from './routes.jsx'
 import app from './reducers'
 import lockControl, { lockMiddleware } from './utils/lockControl';
+import tokenErrorMiddleware from './utils/tokenErrorMiddleware';
 import rootSaga from './sagas/rootSaga';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -13,7 +14,7 @@ const sagaMiddleware = createSagaMiddleware();
 let store = createStore(
   app,
   compose(
-    applyMiddleware(lockMiddleware, sagaMiddleware),
+    applyMiddleware(lockMiddleware, sagaMiddleware, tokenErrorMiddleware),
     window.devToolsExtension ? window.devToolsExtension() : (f) => f
   )
 );
