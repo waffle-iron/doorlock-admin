@@ -9,7 +9,7 @@ import {
   FILTER_PAGE_LIST,
   LOAD_MORE_ON_PAGE_LIST } from '../../constants';
 
-function* fetchEntity(entity, apiFn, id, filter) {
+function* fetchDynamicEntity(entity, apiFn, id, filter) {
   yield put( entity.request(id) )
   const {response, error} = yield call(apiFn, filter)
   if(response)
@@ -18,17 +18,26 @@ function* fetchEntity(entity, apiFn, id, filter) {
     yield put( entity.failure(id, error) )
 }
 
+function* queryPageEntity(entity, apiFn, filter) {
+  yield put( entity.request() )
+  const {response, error} = yield call(apiFn, filter)
+  if(response)
+    yield put( entity.success(response) )
+  else
+    yield put( entity.failure(error) )
+}
+
 
 export const pageService = {
   members: {
-    fetch: fetchEntity.bind(null, entitiesActions.members, fetchUsers),
-    delete: fetchEntity.bind(null, entitiesActions.members.delete, deleteUser)
+    fetch: queryPageEntity.bind(null, entitiesActions.members.get, fetchUsers),
+    delete: queryPageEntity.bind(null, entitiesActions.members.delete, deleteUser)
   }
 }
 
 function* deleteEntityItem({ page, deleteId }) {
   if( !isNaN(deleteId) ) {
-    yield call(pageService[page].delete, page, deleteId)
+    yield call(pageService[page].delete, deleteId)
   }
 }
 
@@ -36,7 +45,7 @@ function* loadPageList(page, loadMore) {
   const pagination = yield select(getPageList, page);
   const { filter, limit, nextPageOffset } = pagination;
   if(!pagination.pageCount || loadMore ) {
-      yield call(pageService[page].fetch, page, {
+      yield call(pageService[page].fetch, {
         ...filter,
         offset: nextPageOffset,
         limit
@@ -46,9 +55,11 @@ function* loadPageList(page, loadMore) {
 
 function* filterPageList({page, filter}) {
   yield call(delay, 1200)
-  yield put( entitiesActions[page].filter(page, filter) )
+  yield put( entitiesActions[page].filter(filter) )
   yield fork(loadPageList, page)
 }
+
+// Watchers
 
 export function* watchLoadPageList() {
   while(true) {

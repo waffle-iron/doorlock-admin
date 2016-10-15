@@ -9,18 +9,23 @@ const action = (type, payload = {}) => {
   return {type, ...payload}
 }
 
-export const members = {
-  request: (page) => action(MEMBERS.REQUEST, {page}),
-  success: (page, response) => action(MEMBERS.SUCCESS, {page, response}),
-  failure: (page) => action(MEMBERS.FAILURE, {page}),
-  filter: (page, filter) => action(MEMBERS.FILTER, {page, filter}),
-  delete: {
-    request: () => action(MEMBERS.DELETE_REQUEST, { page: 'members'}),
-    success: (page, {deleteId}) => action(MEMBERS.DELETE_SUCCESS, { page: 'members', deleteId }),
-    failure: () => action(MEMBERS.DELETE_FAILURE, {}),
+const pageActions = (asyncActionTypes) => {
+  return {
+    filter: (filter) => action(asyncActionTypes.FILTER, {filter}),
+    get: {
+      request: () => action(asyncActionTypes.REQUEST),
+      success: (response) => action(asyncActionTypes.SUCCESS, {response}),
+      failure: () => action(asyncActionTypes.FAILURE),
+    },
+    delete: {
+      request: () => action(asyncActionTypes.DELETE_REQUEST),
+      success: ({deleteId}) => action(asyncActionTypes.DELETE_SUCCESS, { deleteId }),
+      failure: () => action(asyncActionTypes.DELETE_FAILURE, {}),
+    }
   }
 }
 
+export const members = pageActions(MEMBERS);
 export const filterMemberPageList = (filter) => action(FILTER_PAGE_LIST, { page: 'members', filter})
 export const loadMemberPageList = () => action(LOAD_PAGE_LIST, { page: 'members' })
 export const loadMoreMembersOnPageList = () => action(LOAD_MORE_ON_PAGE_LIST, { page: 'members' })
