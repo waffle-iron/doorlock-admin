@@ -33,7 +33,7 @@ const getApi = (endpoint, filter, schema) => {
           count: data.count }
         }
       },
-      (error) => ({ error: error.data ? error.data.message : error.message})
+      (error) => ({ error })
     )
 }
 

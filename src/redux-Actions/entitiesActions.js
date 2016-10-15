@@ -15,12 +15,12 @@ const pageActions = (asyncActionTypes) => {
     get: {
       request: () => action(asyncActionTypes.REQUEST),
       success: (response) => action(asyncActionTypes.SUCCESS, {response}),
-      failure: () => action(asyncActionTypes.FAILURE),
+      failure: (error) => action(asyncActionTypes.FAILURE, {error}),
     },
     delete: {
       request: () => action(asyncActionTypes.DELETE_REQUEST),
       success: ({deleteId}) => action(asyncActionTypes.DELETE_SUCCESS, { deleteId }),
-      failure: () => action(asyncActionTypes.DELETE_FAILURE, {}),
+      failure: (error) => action(asyncActionTypes.DELETE_FAILURE, {error}),
     }
   }
 }
