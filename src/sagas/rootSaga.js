@@ -1,10 +1,11 @@
 import { fork } from 'redux-saga/effects'
 import { watchFetchedScannedId } from './fetchScannedId/fetchScannedId'
+import { watchShowNotification } from './showNotifications';
 import {
   watchLoadPageList,
   watchFilterPageList,
   watchLoadMoreOnPageList,
-  watchDeleteEntityItem } from './pageLists';
+  watchDeleteEntityItem } from './pageLists'
 
 export default function* rootSaga() {
   yield [
@@ -12,6 +13,7 @@ export default function* rootSaga() {
     fork(watchLoadPageList),
     fork(watchFilterPageList),
     fork(watchLoadMoreOnPageList),
-    fork(watchDeleteEntityItem)
+    fork(watchDeleteEntityItem),
+    fork(watchShowNotification)
   ]
 }
