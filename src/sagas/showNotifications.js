@@ -1,6 +1,6 @@
 import { take, put, call, fork, select } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
-import { MEMBERS } from '../constants';
+import { MEMBERS, SCAN_ID_CARD_ERROR } from '../constants';
 import { addNotification } from '../redux-Actions/notificationActions';
 
 function* showNotification(action) {
@@ -33,6 +33,21 @@ function* showNotification(action) {
       }));
       break;
 
+    case SCAN_ID_CARD_ERROR:
+      if(action.error.message === 'Scanning brukte for lang tid') {
+        yield put( addNotification.error({
+          title: 'Scann studentkort',
+          message: 'Brukte for lang tid på å scanne nytt kort.'
+        }));
+      }
+      else {
+        yield put( addNotification.error({
+          title: 'Scann studentkort',
+          message: 'Feil på serveren forhindret scanning.'
+        }));
+      }
+      break;
+
   }
 }
 
@@ -40,6 +55,7 @@ const actions = [
   MEMBERS.FAILURE,
   MEMBERS.DELETE_SUCCESS,
   MEMBERS.DELETE_FAILURE,
+  SCAN_ID_CARD_ERROR
 ];
 
 export function* watchShowNotification() {
