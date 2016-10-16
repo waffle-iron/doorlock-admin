@@ -47,7 +47,7 @@ const deleteApi = (endpoint, id) => {
       }
       Promise.reject(response.data)
     })
-    .catch( (error) => { error })
+    .catch( (error) => ({ error, deleteId: id }) )
 }
 
 export const callApi = {
