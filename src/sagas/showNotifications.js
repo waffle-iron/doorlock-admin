@@ -20,7 +20,7 @@ function* showNotification(action) {
 
     case MEMBERS.DELETE_SUCCESS:
       const { firstName, lastName } = yield select((state,id) => state.entities.users[id], action.deleteId)
-      yield put( addNotification.error({
+      yield put( addNotification.success({
         title: 'Slett medlem',
         message: `Medlemmet ${firstName} ${lastName} ble slettet.`
       }));
