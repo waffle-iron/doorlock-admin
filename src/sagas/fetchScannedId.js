@@ -1,14 +1,20 @@
 import { race, call, put } from 'redux-saga/effects';
 import { delay, takeLatest } from 'redux-saga';
-import idFetcher from '../../utils/idFetcher';
-import { SCAN_ID_CARD } from '../../constants';
+import idFetcher from '../utils/idFetcher';
+import { SCAN_ID_CARD } from '../constants';
+import { change } from 'redux-form';
 import {
   scanIdCardSuccess,
-  scanIdCardError } from '../../redux-Actions/studentIdCardActions';
+  scanIdCardError } from '../redux-Actions/studentIdCardActions';
 
+// Only for testing purposes
+// const idFetcher = () => {
+//   return new Promise( (resolve, reject) => {
+//     window.setTimeout( () => resolve(Date.now().toString()), 200)
+//   });
+// }
 
-
-export function* fetchScannedId(fetchId, waitForTimeout, action) {
+export function* fetchScannedId(fetchId, waitForTimeout, { formId }) {
 
     try {
         const {fetchedId, timeout} = yield race({
@@ -16,7 +22,8 @@ export function* fetchScannedId(fetchId, waitForTimeout, action) {
           timeout: call(delay, waitForTimeout),
         });
         if(fetchedId) {
-          yield put(scanIdCardSuccess(fetchedId));
+          yield put(scanIdCardSuccess());
+          yield put(change(formId, 'studentCardId', fetchedId));
         }
         else {
           yield put(scanIdCardError({ message: 'Scanning feilet, prøv på nytt'}));
