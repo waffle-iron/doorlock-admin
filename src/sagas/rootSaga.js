@@ -1,19 +1,12 @@
 import { fork } from 'redux-saga/effects'
-import { watchFetchedScannedId } from './fetchScannedId/fetchScannedId'
+import { watchFetchedScannedId } from './fetchScannedId'
 import { watchShowNotification } from './showNotifications';
-import {
-  watchLoadPageList,
-  watchFilterPageList,
-  watchLoadMoreOnPageList,
-  watchDeleteEntityItem } from './pageLists'
+import pageEffects from './pageEffects'
 
 export default function* rootSaga() {
   yield [
     fork(watchFetchedScannedId),
-    fork(watchLoadPageList),
-    fork(watchFilterPageList),
-    fork(watchLoadMoreOnPageList),
-    fork(watchDeleteEntityItem),
+    fork(pageEffects),
     fork(watchShowNotification)
   ]
 }
