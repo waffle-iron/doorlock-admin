@@ -66,7 +66,7 @@ export default function paginatePage({ types, perPage = 10 }) {
       case createItemSuccessType:
         return {
           ...state,
-          ids: [action.response.result[0], ...state.ids]
+          ids: [action.response.result, ...state.ids]
         }
       case deleteItemSuccessType:
         return {
