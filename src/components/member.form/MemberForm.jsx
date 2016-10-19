@@ -1,180 +1,81 @@
 import React, { PropTypes } from 'react';
-import Formsy from 'formsy-react';
-import { Input } from 'formsy-react-components';
-import { Form } from 'formsy-react';
+import { Field, reduxForm } from 'redux-form';
+import validateMemberForm from './validateMemberForm';
+import MemberField from './MemberField.jsx';
+import MemberScanCardField from './MemberScanCardField.jsx';
+import { Button, ButtonToolbar } from 'react-bootstrap';
 
-import AddStudentCardId from '../member.addid/AddStudentCardId.jsx';
 
-import styles from './MemberForm-style.css';
+const MemberForm = (props) => {
+  const { handleSubmit, pristine, invalid, reset, submitting } = props;
+  const { title, submitBtnTxt, scanCard } = props;
+  return (
+    <form
+      autoComplete='off'
+      onSubmit={handleSubmit}>
 
-Formsy.addValidationRule('fourYearDecimals', function (values, value) {
-  return value.toString().length === 4;
-});
+      <h5 style={{marginBottom:20}}>{ title || 'Legg til medlem' }</h5>
 
-class MemberForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      submitDisabled: true
-    }
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onValid = this.onValid.bind(this);
-    this.onInvalid = this.onInvalid.bind(this);
-  }
-  onSubmit(model,reset,invalidate) {
-    const { submit } = this.props;
-    submit(model,reset,invalidate);
-  }
-  onValid() {
-    this.setState({ submitDisabled: false });
-  }
-  onInvalid() {
-    this.setState({ submitDisabled: true });
-  }
-  renderLoadingScreen() {
-    return (
-      <div className={styles.loadingBox}><i className='fa fa-cog fa-spin fa-5x fa-fw'></i></div>
-    );
-  }
-  render () {
-    const { defaultValues, changeMode, memberDontExist } = this.props;
-    const { isLoading, failedId } = this.props;
-    const { studentIdProps, scanCard } = this.props;
-    const studIdProps = {
-      ...studentIdProps,
-      scanCard
-    }
-    const addEdit = changeMode ? 'Endre' : 'Legg til';
-    const header = `${addEdit} medlem`;
+      <Field
+        name='firstName'
+        component={MemberField}
+        type='text'
+        label='Fornavn'
+      />
+      <Field
+        name='lastName'
+        component={MemberField}
+        type='text'
+        label='Etternavn'
+      />
+      <Field
+        name='userName'
+        component={MemberField}
+        type='text'
+        label='Brukernavn'
+      />
+      <Field
+        name='graduationYear'
+        component={MemberField}
+        type='number'
+        label='Avgangsår'
+      />
+      <Field
+        name='privateEmail'
+        component={MemberField}
+        type='email'
+        label='Privat e-postadresse'
+      />
+      <Field
+        name='mobile'
+        component={MemberField}
+        type='tel'
+        label='Telefonnummer'
+      />
+      <Field
+        name='studentCardId'
+        component={MemberScanCardField}
+        label='Studentkortid'
+        scanCard={scanCard}
+      />
 
-    if( memberDontExist ) {
-      return (
-        <h5 style={{textAlign:'center'}}>{`Medlem med id ${failedId} finnes ikke`}</h5>
-      );
-    }
+      <ButtonToolbar style={{marginTop:30,marginBottom:20}}>
+        <Button
+          type='submit'
+          bsStyle='primary'
+          disabled={pristine || submitting}>{submitBtnTxt || 'Legg til medlem'}</Button>
+        <Button
+          bsStyle='warning'
+          disabled={pristine || submitting}
+          onClick={reset}>Tilbakestill</Button>
+      </ButtonToolbar>
 
-    return(
-      <Form
-        onValidSubmit={this.onSubmit}
-        onValid={this.onValid}
-        onInvalid={this.onInvalid}
-        className={styles.form}
-      >
-        { isLoading ? this.renderLoadingScreen() : ''}
-        <fieldset>
-          <legend>{header}</legend>
-          <Input
-            name="firstName"
-            id="firstName"
-            value={defaultValues.firstName}
-            label="Fornavn"
-            type="text"
-            validations={{
-              matchRegexp: /^[a-zA-Z \-æøåÆØÅ]*$/
-            }}
-            validationErrors={{
-              matchRegexp: 'Kun bokstaver og bindestreker er godtatt'
-            }}
-            placeholder="Medlemmets fornavn"
-            required
-            />
-
-          <Input
-            name="lastName"
-            value={defaultValues.lastName}
-            label="Etternavn"
-            type="text"
-            validations={{
-              matchRegexp: /^[a-zA-Z æøåÆØÅ]*$/
-            }}
-            validationErrors={{
-              matchRegexp: 'Kun bokstaver er godtatt'
-            }}
-            placeholder="Medlemmets etternavn"
-            required
-            />
-
-          <Input
-            name="userName"
-            value={defaultValues.userName}
-            label="Brukernavn"
-            type="text"
-            validations="isAlphanumeric"
-            validationErrors={{
-              isAlphanumeric: 'Kun bokstaver og tall er godtatt'
-            }}
-            placeholder="Medlemmets brukernavn på UIT"
-            required
-            />
-
-          <Input
-            name="graduationYear"
-            value={defaultValues.graduationYear}
-            min={2010}
-            label="Avgangsår"
-            type="number"
-            autoComplete={false}
-            validations="fourYearDecimals"
-            validationErrors={{
-              fourYearDecimals: 'Årstall med format YYYY'
-            }}
-            placeholder="Året medlemmet er ferdig på UIT"
-            required
-            />
-
-          <Input
-            name="privateEmail"
-            value={defaultValues.privateEmail}
-            label="Privat e-post"
-            type="email"
-            autoComplete={false}
-            placeholder="Medlemmets private e-post (ola@gmail.com)"
-            validations="isEmail"
-            validationErrors={{
-              isEmail: 'Dette ser ikke ut som en gyldig e-postadresse'
-            }}
-            />
-
-          <Input
-            name="mobile"
-            value={defaultValues.mobile}
-            label="Telefonnummer"
-            type="tel"
-            autoComplete="off"
-            placeholder="Medlemmets telefonnummer ( 12345678 )"
-            validations="isNumeric,isLength:8"
-            validationErrors={{
-              isNumeric: 'Dette ser ikke ut som et gyldig telefonnummer',
-              isLength: 'Krever 8 siffer'
-            }}
-            />
-
-          <AddStudentCardId {...studIdProps} />
-
-        </fieldset>
-
-        <div className={styles.btnBox}>
-          <input type="submit" className="btn btn-primary" formnovalidate={true}
-            disabled={this.state.submitDisabled} value={addEdit} />
-        </div>
-
-      </Form>
-    );
-  }
+    </form>
+  )
 }
 
-MemberForm.defaultProps = {
-  defaultValues: {
-    firstName: '',
-    lastName: '',
-    userName: '',
-    graduationYear: '',
-    privateEmail: '',
-    mobile: ''
-  },
-  changeMode: false,
-  memberDontExist: false,
-  isLoading: false
-}
+const MemberFormWithReduxForm = reduxForm({
+  validate: validateMemberForm
+})(MemberForm);
 
-export default MemberForm;
+export default MemberFormWithReduxForm;
