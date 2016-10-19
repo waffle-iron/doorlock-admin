@@ -5,9 +5,13 @@ import { getPageList } from '../reducers/selectors';
 import pageService from './pageService';
 import {
   LOAD_PAGE_LIST,
+  CREATE_ENTITY_ITEM,
   DELETE_ENTITY_ITEM,
   FILTER_PAGE_LIST,
   LOAD_MORE_ON_PAGE_LIST } from '../constants';
+
+
+// List pages ------------------------------------------------
 
 function* loadPageList(page, loadMore) {
   const pagination = yield select(getPageList, page);
@@ -33,26 +37,47 @@ function* deleteEntityItem({ page, deleteId }) {
   }
 }
 
-// Watchers
+// Create pages ---------------------------------------------
 
-export function* watchLoadPageList() {
+function* createEntityItem({ page, formId, newMember }) {
+  yield call(pageService[page].create, formId, newMember)
+}
+
+
+// Watchers -------------------------------------------------
+
+function* watchLoadPageList() {
   while(true) {
     const { page } = yield take(LOAD_PAGE_LIST)
     yield fork(loadPageList, page)
   }
 }
 
-export function* watchFilterPageList() {
+function* watchFilterPageList() {
   yield takeLatest(FILTER_PAGE_LIST, filterPageList)
 }
 
-export function* watchLoadMoreOnPageList() {
+function* watchLoadMoreOnPageList() {
   while(true) {
     const { page } = yield take(LOAD_MORE_ON_PAGE_LIST)
     yield fork(loadPageList, page, true)
   }
 }
 
-export function* watchDeleteEntityItem() {
+function* watchDeleteEntityItem() {
   yield takeLatest(DELETE_ENTITY_ITEM, deleteEntityItem)
+}
+
+function* watchCreateEntityItem() {
+  yield takeLatest(CREATE_ENTITY_ITEM, createEntityItem)
+}
+
+export default function* pageEffects() {
+  yield [
+    fork(watchLoadPageList),
+    fork(watchFilterPageList),
+    fork(watchLoadMoreOnPageList),
+    fork(watchDeleteEntityItem),
+    fork(watchCreateEntityItem),
+  ]
 }
