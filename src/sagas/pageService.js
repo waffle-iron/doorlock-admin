@@ -20,10 +20,10 @@ function* queryEntity(entity, apiFn, filter) {
     yield put( entity.failure(error) )
 }
 
-function* createEntity(entity, apiFn, formId, newMember) {
+function* createEntity(entity, apiFn, formId, newEntity) {
   yield put( entity.request() )
   yield put( startSubmit(formId) )
-  const {response, error} = yield call(apiFn, newMember)
+  const {response, error} = yield call(apiFn, newEntity)
   if(response) {
     yield put( entity.success(response) )
     yield put( reset(formId) )
