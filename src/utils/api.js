@@ -37,6 +37,18 @@ const getApi = (endpoint, filter, schema) => {
     )
 }
 
+// Generic api abstraction for creating new entities
+const createApi = (endpoint, body, schema) => {
+  return Api.post(endpoint, body)
+    .then( (response) => {
+      if(response.data.success) {
+        return response.data.data;
+      }
+      Promise.reject(response.data)
+    })
+    .then( (data) => ({ response: { ...normalize(data, schema)} }))
+    .catch((error) => ({ error }))
+}
 
 // Generic api abstraction for deleting entities
 const deleteApi = (endpoint, id) => {
@@ -52,5 +64,6 @@ const deleteApi = (endpoint, id) => {
 
 export const callApi = {
   get: getApi,
+  create: createApi,
   delete: deleteApi
 }

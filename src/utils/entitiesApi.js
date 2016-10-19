@@ -32,6 +32,7 @@ const slotSchemaArray = arrayOf(slotSchema);
 export const fetchUser = (id) => callApi.get(`/user/findById/${id}`, {}, userSchema);
 export const fetchUsers = (filter) => callApi.get('/user', filter, userSchemaArray);
 export const deleteUser = (id) => callApi.delete(`/user/delete/${id}`, id);
+export const createUser = (newUser) => callApi.create('/user/add', newUser, userSchema);
 
 export const fetchProduct = (id) => callApi.get(`/product/findById/${id}`, {}, productSchema);
 export const fetchProducts = (filter) => callApi.get('/product', filter, productSchemaArray);
