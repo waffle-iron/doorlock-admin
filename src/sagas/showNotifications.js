@@ -18,6 +18,15 @@ function* showNotification(action) {
       }));
       break;
 
+    case MEMBERS.CREATE_SUCCESS:
+      const newFirstName = action.response.entities.users[action.response.result].firstName
+      const newLastName = action.response.entities.users[action.response.result].lastName
+      yield put( addNotification.success({
+        title: 'Legg til medlem',
+        message: `Medlemmet ${newFirstName} ${newLastName} ble lagt til.`
+      }));
+      break;
+
     case MEMBERS.DELETE_SUCCESS:
       const { firstName, lastName } = yield select((state,id) => state.entities.users[id], action.deleteId)
       yield put( addNotification.success({
@@ -53,6 +62,7 @@ function* showNotification(action) {
 
 const actions = [
   MEMBERS.FAILURE,
+  MEMBERS.CREATE_SUCCESS,
   MEMBERS.DELETE_SUCCESS,
   MEMBERS.DELETE_FAILURE,
   SCAN_ID_CARD_ERROR
