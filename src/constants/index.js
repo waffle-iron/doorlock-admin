@@ -31,6 +31,8 @@ export const MEMBERS = {
 export const LOAD_PAGE_LIST = 'LOAD_PAGE_LIST';
 export const FILTER_PAGE_LIST = 'FILTER_PAGE_LIST';
 export const LOAD_MORE_ON_PAGE_LIST = 'LOAD_MORE_ON_PAGE_LIST';
+
+export const CREATE_ENTITY_ITEM = 'CREATE_ENTITY_ITEM';
 export const DELETE_ENTITY_ITEM = 'DELETE_ENTITY_ITEM';
 
 // Lockstatus constants
@@ -45,7 +47,7 @@ export const LOCK_SET_SOCKET_STATUS = 'LOCK_SET_SOCKET_STATUS';
 export const LOCK_SOCKET_TOKEN_ERROR = 'LOCK_SOCKET_TOKEN_ERROR';
 
 // studentIdCard constants
-export const SET_NEW_CARD_ID = 'SET_NEW_ID';
+
 export const SCAN_ID_CARD = 'SCAN_ID_CARD';
 export const SCAN_ID_CARD_SUCCESS = 'SCAN_ID_CARD_SUCCESS';
 export const SCAN_ID_CARD_ERROR = 'SCAN_ID_CARD_ERROR';
