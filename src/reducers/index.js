@@ -2,8 +2,9 @@ import { combineReducers } from 'redux';
 import lockStatus from './lockStatus';
 import notification from './notification';
 import studentIdCard from './studentIdCard';
+import entityDontExist from './entityDontExist';
 import merge from 'lodash/merge';
-import { MEMBERS } from '../constants';
+import { MEMBERS, MEMBER } from '../constants';
 import paginatePage from './pagination/paginatePage';
 import { reducer as formReducer } from 'redux-form'
 
@@ -22,14 +23,15 @@ const pagination = combineReducers({
       MEMBERS.FILTER,
       MEMBERS.SUCCESS,
       MEMBERS.FAILURE,
-      MEMBERS.CREATE_SUCCESS,
-      MEMBERS.DELETE_SUCCESS
+      MEMBER.CREATE_SUCCESS,
+      MEMBER.DELETE_SUCCESS
     ]
   })
 })
 
 const app = combineReducers({
   entities,
+  entityDontExist,
   pagination,
   notification,
   lockStatus,

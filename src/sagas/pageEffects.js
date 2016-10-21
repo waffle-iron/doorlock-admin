@@ -1,11 +1,13 @@
 import { take, put, call, fork, select } from 'redux-saga/effects';
-import { delay, takeLatest } from 'redux-saga';
+import { delay, takeLatest, takeEvery } from 'redux-saga';
 import * as entitiesActions from '../redux-Actions/entitiesActions';
-import { getPageList } from '../reducers/selectors';
+import { getPageList, getUser } from '../reducers/selectors';
 import pageService from './pageService';
 import {
   LOAD_PAGE_LIST,
+  LOAD_MEMBER_EDIT_PAGE,
   CREATE_ENTITY_ITEM,
+  EDIT_ENTITY_ITEM,
   DELETE_ENTITY_ITEM,
   FILTER_PAGE_LIST,
   LOAD_MORE_ON_PAGE_LIST } from '../constants';
@@ -13,11 +15,11 @@ import {
 
 // List pages ------------------------------------------------
 
-function* loadPageList(page, loadMore) {
-  const pagination = yield select(getPageList, page);
+function* loadPageList(service, loadMore) {
+  const pagination = yield select(getPageList, service);
   const { filter, limit, nextPageOffset } = pagination;
   if(!pagination.pageCount || loadMore ) {
-      yield call(pageService[page].fetch, {
+      yield call(pageService[service].fetch, {
         ...filter,
         offset: nextPageOffset,
         limit
@@ -25,31 +27,45 @@ function* loadPageList(page, loadMore) {
   }
 }
 
-function* filterPageList({page, filter}) {
+function* filterPageList({service, filter}) {
   yield call(delay, 1200)
-  yield put( entitiesActions[page].filter(filter) )
-  yield fork(loadPageList, page)
+  yield put( entitiesActions[service].filter(filter) )
+  yield fork(loadPageList, service)
 }
 
-function* deleteEntityItem({ page, deleteId }) {
-  if( !isNaN(deleteId) ) {
-    yield call(pageService[page].delete, deleteId)
-  }
+function* deleteEntityItem({ service, deleteId }) {
+    yield call(pageService[service].delete, deleteId)
 }
 
 // Create pages ---------------------------------------------
 
-function* createEntityItem({ page, formId, newMember }) {
-  yield call(pageService[page].create, formId, newMember)
+function* createEntityItem({ service, formId, newEntity }) {
+  yield call(pageService[service].create, formId, newEntity)
 }
 
+// Edit pages ----------------------------------------------
+
+function* loadUserToEditForm(id) {
+  const user = yield select(getUser, id);
+  if(!user) {
+    yield call(pageService.member.fetchToForm, 'editMember', id)
+  }
+}
+
+function* loadMemberEditPage({id}) {
+  yield call(loadUserToEditForm, id);
+}
+
+function* editEntityItem({ service, formId, mutId, mutatedEntity }) {
+  yield call(pageService[service].edit, formId, mutId, mutatedEntity)
+}
 
 // Watchers -------------------------------------------------
 
 function* watchLoadPageList() {
   while(true) {
-    const { page } = yield take(LOAD_PAGE_LIST)
-    yield fork(loadPageList, page)
+    const { service } = yield take(LOAD_PAGE_LIST)
+    yield fork(loadPageList, service)
   }
 }
 
@@ -59,8 +75,8 @@ function* watchFilterPageList() {
 
 function* watchLoadMoreOnPageList() {
   while(true) {
-    const { page } = yield take(LOAD_MORE_ON_PAGE_LIST)
-    yield fork(loadPageList, page, true)
+    const { service } = yield take(LOAD_MORE_ON_PAGE_LIST)
+    yield fork(loadPageList, service, true)
   }
 }
 
@@ -72,6 +88,14 @@ function* watchCreateEntityItem() {
   yield takeLatest(CREATE_ENTITY_ITEM, createEntityItem)
 }
 
+function* watchEditEntityItem() {
+  yield takeLatest(EDIT_ENTITY_ITEM, editEntityItem)
+}
+
+function* watchLoadMemberEditPage() {
+  yield takeEvery(LOAD_MEMBER_EDIT_PAGE, loadMemberEditPage)
+}
+
 export default function* pageEffects() {
   yield [
     fork(watchLoadPageList),
@@ -79,5 +103,7 @@ export default function* pageEffects() {
     fork(watchLoadMoreOnPageList),
     fork(watchDeleteEntityItem),
     fork(watchCreateEntityItem),
+    fork(watchEditEntityItem),
+    fork(watchLoadMemberEditPage),
   ]
 }

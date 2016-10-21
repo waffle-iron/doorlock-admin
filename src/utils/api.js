@@ -23,6 +23,9 @@ const getApi = (endpoint, filter, schema) => {
     })
     .then(
       (data) => {
+        if(data === null) {
+          return { response: 'does not exist'}
+        }
         if(!data.rows) {
           return { response: {
             ...normalize(data, schema)}
@@ -50,6 +53,29 @@ const createApi = (endpoint, body, schema) => {
     .catch((error) => ({ error }))
 }
 
+// Generic api abstraction for editing entities
+const editApi = (endpoint, body, id, entity) => {
+  return Api.put(endpoint, body)
+    .then( (response) => {
+      if(response.data.success) {
+        return {
+          response: {
+            entities: {
+              [entity]: {
+                [id]: {
+                  ...body
+                }
+              }
+            }
+          }
+        }
+
+      }
+      Promise.reject(response.data)
+    })
+    .catch((error) => ({ error }))
+}
+
 // Generic api abstraction for deleting entities
 const deleteApi = (endpoint, id) => {
   return Api.delete(endpoint)
@@ -65,5 +91,6 @@ const deleteApi = (endpoint, id) => {
 export const callApi = {
   get: getApi,
   create: createApi,
+  edit: editApi,
   delete: deleteApi
 }

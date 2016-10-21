@@ -1,5 +1,5 @@
 import { put, call } from 'redux-saga/effects';
-import * as entitiesActions from '../redux-Actions/entitiesActions';
+import * as entityActions from '../redux-Actions/entitiesActions';
 import {
   reset,
   startSubmit,
@@ -8,6 +8,7 @@ import {
   fetchUser,
   fetchUsers,
   createUser,
+  editUser,
   deleteUser } from '../utils/entitiesApi';
 
 
@@ -35,13 +36,45 @@ function* createEntity(entity, apiFn, formId, newEntity) {
   }
 }
 
+function* fetchOneToForm(entity, apiFn, formId, id) {
+  yield put( entity.request() )
+  yield put( startSubmit(formId) )
+  const {response, error} = yield call(apiFn, id)
+  if(response === 'does not exist') {
+    yield put(entityActions.memberDontExist(id));
+  }
+  else if(response) {
+    yield put( entity.success(response) )
+    yield put( stopSubmit(formId) )
+  }
+  else {
+    yield put( entity.failure(error) )
+    yield put( stopSubmit(formId) )
+  }
+}
+
+function* editEntity(entity, apiFn, formId, mutId, mutatedEntity) {
+  yield put( entity.request() )
+  yield put( startSubmit(formId) )
+  const {response, error} = yield call(apiFn, mutId, mutatedEntity)
+  if(response) {
+    yield put( entity.success(response) )
+  }
+  else {
+    yield put( entity.failure(error) )
+  }
+  yield put( stopSubmit(formId) )
+}
 
 const pageService = {
   members: {
-    fetch: queryEntity.bind(null, entitiesActions.members.get, fetchUsers),
-    fetchOne: queryEntity.bind(null, entitiesActions.members.get, fetchUser),
-    delete: queryEntity.bind(null, entitiesActions.members.delete, deleteUser),
-    create: createEntity.bind(null, entitiesActions.members.create, createUser)
+    fetch: queryEntity.bind(null, entityActions.members.get, fetchUsers),
+  },
+  member: {
+    fetchToForm: fetchOneToForm.bind(null, entityActions.member.get, fetchUser),
+    create: createEntity.bind(null, entityActions.member.create, createUser),
+    edit: editEntity.bind(null, entityActions.member.edit, editUser),
+    delete: queryEntity.bind(null, entityActions.member.delete, deleteUser),
   }
 }
 

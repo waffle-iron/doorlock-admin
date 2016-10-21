@@ -1,39 +1,26 @@
-const REQUEST = 'REQUEST'
-const FILTER = 'FILTER'
-const SUCCESS = 'SUCCESS'
-const FAILURE = 'FAILURE'
+import {
+  createRequestTypes,
+  createRequestWithFilterTypes,
+  createMutationTypes
+} from './constantCreators';
 
-const createRequestTypes = (base) => {
-  return [REQUEST, FILTER, SUCCESS, FAILURE].reduce((acc, type) => {
-		acc[type] = `${base}_${type}`
-		return acc
-	}, {})
+export const MEMBERS = createRequestWithFilterTypes('MEMBERS');
+
+export const MEMBER = {
+  ...createRequestTypes('MEMBER'),
+  ...createMutationTypes('MEMBER')
 }
 
-const CREATE = 'CREATE'
-const EDIT = 'EDIT'
-const DELETE = 'DELETE'
-
-const createMutationTypes = (base) => {
-  return [CREATE, EDIT, DELETE].reduce((acc, type) => {
-    [REQUEST, SUCCESS, FAILURE].forEach((reqType) => {
-      acc[`${type}_${reqType}`] = `${base}_${type}_${reqType}`
-    })
-		return acc
-	}, {})
-}
-
-export const MEMBERS = {
-  ...createRequestTypes('MEMBERS'),
-  ...createMutationTypes('MEMBERS')
-}
+export const LOAD_MEMBER_EDIT_PAGE = 'LOAD_MEMBER_EDIT_PAGE';
 
 export const LOAD_PAGE_LIST = 'LOAD_PAGE_LIST';
 export const FILTER_PAGE_LIST = 'FILTER_PAGE_LIST';
 export const LOAD_MORE_ON_PAGE_LIST = 'LOAD_MORE_ON_PAGE_LIST';
 
 export const CREATE_ENTITY_ITEM = 'CREATE_ENTITY_ITEM';
+export const EDIT_ENTITY_ITEM = 'EDIT_ENTITY_ITEM';
 export const DELETE_ENTITY_ITEM = 'DELETE_ENTITY_ITEM';
+export const ENTITY_DONT_EXIST = 'ENTITY_DONT_EXIST';
 
 // Lockstatus constants
 export const LOCK_SOCKET_AUTHENTICATE = 'LOCK_SOCKET_AUTHENTICATE';

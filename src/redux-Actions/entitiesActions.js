@@ -1,39 +1,30 @@
 import {
   MEMBERS,
+  MEMBER,
+  LOAD_MEMBER_EDIT_PAGE,
   LOAD_PAGE_LIST,
   FILTER_PAGE_LIST,
   CREATE_ENTITY_ITEM,
+  EDIT_ENTITY_ITEM,
   DELETE_ENTITY_ITEM,
+  ENTITY_DONT_EXIST,
   LOAD_MORE_ON_PAGE_LIST } from '../constants';
+import {
+  action,
+  listAsyncActions,
+  singleAsyncActions,
+  entityDontExist } from './actionCreators';
 
-const action = (type, payload = {}) => {
-  return {type, ...payload}
-}
 
-const pageActions = (asyncActionTypes) => {
-  return {
-    filter: (filter) => action(asyncActionTypes.FILTER, {filter}),
-    get: {
-      request: () => action(asyncActionTypes.REQUEST),
-      success: (response) => action(asyncActionTypes.SUCCESS, {response}),
-      failure: (error) => action(asyncActionTypes.FAILURE, {error}),
-    },
-    create: {
-      request: () => action(asyncActionTypes.CREATE_REQUEST),
-      success: (response) => action(asyncActionTypes.CREATE_SUCCESS, {response}),
-      failure: (error) => action(asyncActionTypes.CREATE_FAILURE, {error}),
-    },
-    delete: {
-      request: () => action(asyncActionTypes.DELETE_REQUEST),
-      success: ({deleteId}) => action(asyncActionTypes.DELETE_SUCCESS, {deleteId}),
-      failure: (error) => action(asyncActionTypes.DELETE_FAILURE, {error}),
-    }
-  }
-}
+export const members = listAsyncActions(MEMBERS);
+export const filterMemberPageList = (filter) => action(FILTER_PAGE_LIST, { service: 'members', filter})
+export const loadMemberPageList = () => action(LOAD_PAGE_LIST, { service: 'members' })
+export const loadMoreMembersOnPageList = () => action(LOAD_MORE_ON_PAGE_LIST, { service: 'members' })
 
-export const members = pageActions(MEMBERS);
-export const filterMemberPageList = (filter) => action(FILTER_PAGE_LIST, { page: 'members', filter})
-export const loadMemberPageList = () => action(LOAD_PAGE_LIST, { page: 'members' })
-export const loadMoreMembersOnPageList = () => action(LOAD_MORE_ON_PAGE_LIST, { page: 'members' })
-export const deleteMember = (deleteId) => action(DELETE_ENTITY_ITEM, { page: 'members', deleteId })
-export const createMember = (formId, newMember) => action(CREATE_ENTITY_ITEM, { page: 'members', formId, newMember })
+export const loadMemberEditPage = (id) => action(LOAD_MEMBER_EDIT_PAGE, { id })
+
+export const member = singleAsyncActions(MEMBER);
+export const createMember = (formId, newMember) => action(CREATE_ENTITY_ITEM, { service: 'member', formId, newEntity: newMember })
+export const editMember = (formId, mutId, mutatedMember) => action(EDIT_ENTITY_ITEM, { service: 'member', formId, mutId, mutatedEntity: mutatedMember })
+export const deleteMember = (deleteId) => action(DELETE_ENTITY_ITEM, { service: 'member', deleteId })
+export const memberDontExist = (id) => entityDontExist('users', id);

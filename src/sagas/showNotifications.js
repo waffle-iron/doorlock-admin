@@ -1,6 +1,6 @@
 import { take, put, call, fork, select } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
-import { MEMBERS, SCAN_ID_CARD_ERROR } from '../constants';
+import { MEMBERS, MEMBER, SCAN_ID_CARD_ERROR } from '../constants';
 import { addNotification } from '../redux-Actions/notificationActions';
 
 function* showNotification(action) {
@@ -18,7 +18,7 @@ function* showNotification(action) {
       }));
       break;
 
-    case MEMBERS.CREATE_SUCCESS:
+    case MEMBER.CREATE_SUCCESS:
       const newFirstName = action.response.entities.users[action.response.result].firstName
       const newLastName = action.response.entities.users[action.response.result].lastName
       yield put( addNotification.success({
@@ -27,7 +27,7 @@ function* showNotification(action) {
       }));
       break;
 
-    case MEMBERS.DELETE_SUCCESS:
+    case MEMBER.DELETE_SUCCESS:
       const { firstName, lastName } = yield select((state,id) => state.entities.users[id], action.deleteId)
       yield put( addNotification.success({
         title: 'Slett medlem',
@@ -35,7 +35,7 @@ function* showNotification(action) {
       }));
       break;
 
-    case MEMBERS.DELETE_FAILURE:
+    case MEMBER.DELETE_FAILURE:
       yield put( addNotification.error({
         title: 'Slett medlem',
         message: 'Feil på serveren forhindret sletting.'
@@ -62,9 +62,9 @@ function* showNotification(action) {
 
 const actions = [
   MEMBERS.FAILURE,
-  MEMBERS.CREATE_SUCCESS,
-  MEMBERS.DELETE_SUCCESS,
-  MEMBERS.DELETE_FAILURE,
+  MEMBER.CREATE_SUCCESS,
+  MEMBER.DELETE_SUCCESS,
+  MEMBER.DELETE_FAILURE,
   SCAN_ID_CARD_ERROR
 ];
 

@@ -1,7 +1,6 @@
 import { callApi } from './api';
 import { Schema, arrayOf } from 'normalizr';
 
-// Schemas for Github API responses.
 const userSchema = new Schema('users', {
   idAttribute: 'id'
 });
@@ -33,6 +32,7 @@ export const fetchUser = (id) => callApi.get(`/user/findById/${id}`, {}, userSch
 export const fetchUsers = (filter) => callApi.get('/user', filter, userSchemaArray);
 export const deleteUser = (id) => callApi.delete(`/user/delete/${id}`, id);
 export const createUser = (newUser) => callApi.create('/user/add', newUser, userSchema);
+export const editUser = (id, mutatedUser) => callApi.edit(`/user/edit/${id}`, mutatedUser, id, 'users');
 
 export const fetchProduct = (id) => callApi.get(`/product/findById/${id}`, {}, productSchema);
 export const fetchProducts = (filter) => callApi.get('/product', filter, productSchemaArray);
