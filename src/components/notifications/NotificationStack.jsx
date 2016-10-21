@@ -1,6 +1,5 @@
 import React from 'react'
 import NotificationSystem from 'react-notification-system'
-import NotificationStore from '../../stores/NotificationStore'
 
 export default class Notifications extends React.Component {
     constructor() {

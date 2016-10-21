@@ -15,8 +15,6 @@
   },
   "devDependencies": {
     "@kadira/storybook": "^1.26.0",
-    "alt": "^0.18.2",
-    "alt-container": "^1.0.2",
     "axios": "^0.11.0",
     "babel-core": "^6.3.15",
     "babel-eslint": "^5.0.0-beta4",
@@ -35,8 +33,6 @@
     "eslint-plugin-react": "^3.11.3",
     "eventsource-polyfill": "^0.9.6",
     "file-loader": "^0.8.5",
-    "formsy-react": "^0.18.0",
-    "formsy-react-components": "^0.7.1",
     "history": "^2.1.1",
     "jest": "^16.0.1",
     "lodash": "^4.16.4",

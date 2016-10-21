@@ -1,8 +1,6 @@
-import NotificationActions from '../actions/NotificationActions';
 import { addNotification } from '../redux-Actions/notificationActions';
 import io from 'socket.io-client';
 import { baseUrl } from 'config';
-import tokenErrorHandler from './tokenErrorHandler';
 import { LOCK_FORCE_OPEN, LOCK_FORCE_CLOSE, LOCK_SOCKET_AUTHENTICATE } from '../constants';
 import {
   setLockSocketStatus,
