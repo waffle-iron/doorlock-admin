@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Row, Col, Alert } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { lockForceOpen, lockForceClose } from '../../redux-Actions/lockStatusActions';
+import { lockForceOpen, lockForceClose } from '../../actions/lockStatusActions';
 
 import LockLogStream from '../../components/lock.logstream/LockLogStream.jsx';
 import LockStatus from '../../components/lock.status/LockStatus.jsx';

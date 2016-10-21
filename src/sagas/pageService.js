@@ -1,5 +1,5 @@
 import { put, call } from 'redux-saga/effects';
-import * as entityActions from '../redux-Actions/entitiesActions';
+import * as entityActions from '../actions/entitiesActions';
 import {
   reset,
   startSubmit,

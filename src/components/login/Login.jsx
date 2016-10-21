@@ -5,7 +5,7 @@ import { Form } from 'formsy-react';
 import { Button } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import auth from '../../utils/auth';
-import { authenticateLockSocket } from '../../redux-Actions/lockStatusActions';
+import { authenticateLockSocket } from '../../actions/lockStatusActions';
 
 import styles from './Login-style.css';
 

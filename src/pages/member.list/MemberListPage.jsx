@@ -8,7 +8,7 @@ import {
   loadMemberPageList,
   filterMemberPageList,
   loadMoreMembersOnPageList,
-  deleteMember } from '../../redux-Actions/entitiesActions';
+  deleteMember } from '../../actions/entitiesActions';
 
 class MemberListPage extends React.Component {
   componentWillMount() {

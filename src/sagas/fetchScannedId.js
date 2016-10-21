@@ -5,7 +5,7 @@ import { SCAN_ID_CARD } from '../constants';
 import { change } from 'redux-form';
 import {
   scanIdCardSuccess,
-  scanIdCardError } from '../redux-Actions/studentIdCardActions';
+  scanIdCardError } from '../actions/studentIdCardActions';
 
 // Only for testing purposes
 // const idFetcher = () => {

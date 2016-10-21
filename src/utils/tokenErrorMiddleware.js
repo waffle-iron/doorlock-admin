@@ -1,5 +1,5 @@
 import { browserHistory } from 'react-router'
-import { addNotification } from '../redux-Actions/notificationActions'
+import { addNotification } from '../actions/notificationActions'
 
 const tokenErrorMiddleware = ({ getState, dispatch }) => (next) => (action) => {
 

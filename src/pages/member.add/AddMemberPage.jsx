@@ -3,8 +3,8 @@ import { Row, Col } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 
-import { scanIdCard } from '../../redux-Actions/studentIdCardActions';
-import { createMember } from '../../redux-Actions/entitiesActions';
+import { scanIdCard } from '../../actions/studentIdCardActions';
+import { createMember } from '../../actions/entitiesActions';
 import MemberForm from '../../components/member.form/MemberForm.jsx';
 
 

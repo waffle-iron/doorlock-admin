@@ -1,7 +1,7 @@
 import { take, put, call, fork, select } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
 import { MEMBERS, MEMBER, SCAN_ID_CARD_ERROR } from '../constants';
-import { addNotification } from '../redux-Actions/notificationActions';
+import { addNotification } from '../actions/notificationActions';
 
 function* showNotification(action) {
 

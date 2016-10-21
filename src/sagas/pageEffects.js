@@ -1,6 +1,6 @@
 import { take, put, call, fork, select } from 'redux-saga/effects';
 import { delay, takeLatest, takeEvery } from 'redux-saga';
-import * as entitiesActions from '../redux-Actions/entitiesActions';
+import * as entitiesActions from '../actions/entitiesActions';
 import { getPageList, getUser } from '../reducers/selectors';
 import pageService from './pageService';
 import {
