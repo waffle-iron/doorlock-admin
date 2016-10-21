@@ -6,7 +6,8 @@ import entityDontExist from './entityDontExist';
 import merge from 'lodash/merge';
 import { MEMBERS, MEMBER } from '../constants';
 import paginatePage from './pagination/paginatePage';
-import { reducer as formReducer } from 'redux-form'
+import { reducer as formReducer } from 'redux-form';
+import { loadingBarReducer } from 'react-redux-loading-bar';
 
 // Updates an entity cache in response to any action with response.entities.
 const entities = (state = { users: {} }, action) => {
@@ -36,7 +37,8 @@ const app = combineReducers({
   notification,
   lockStatus,
   studentIdCard,
-  form: formReducer
+  form: formReducer,
+  loadingBar: loadingBarReducer,
 });
 
 export default app;
