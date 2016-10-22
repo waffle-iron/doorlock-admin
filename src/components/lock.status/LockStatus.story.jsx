@@ -2,7 +2,7 @@ import React from 'react';
 import LockStatus from './LockStatus';
 import { storiesOf } from '@kadira/storybook';
 import { action, decorateAction } from '@kadira/storybook-addon-actions'
-import containerWidth from '../../../.storybook/decorators/containerWidth';
+import { containerWidth } from 'storybook-decorators';
 import { withKnobs, boolean, number } from '@kadira/storybook-addon-knobs';
 
 const firstArgAction = decorateAction([

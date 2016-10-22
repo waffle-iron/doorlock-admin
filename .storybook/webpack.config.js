@@ -7,6 +7,7 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
     alias: {
+        'storybook-decorators': path.join( __dirname, 'decorators'),
         'socket.io-client': path.join( nodeRoot, 'socket.io-client', 'socket.io.js' ),
         'config': path.join(__dirname, '..', 'src', 'config', nodeEnv)
     }
