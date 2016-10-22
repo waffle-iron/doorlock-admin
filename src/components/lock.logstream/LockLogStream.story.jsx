@@ -1,8 +1,12 @@
 import React from 'react';
 import LockLogStream from './LockLogStream.jsx';
 import { storiesOf, action } from '@kadira/storybook';
+import { containerWidth } from 'storybook-decorators';
+import { withKnobs } from '@kadira/storybook-addon-knobs';
 
 storiesOf('LockLogStream', module)
+  .addDecorator(containerWidth(500, true))
+  .addDecorator(withKnobs)
   .add('Startup stream log output', () => {
     const props = {
       log: '--------------------------------------------\n\
