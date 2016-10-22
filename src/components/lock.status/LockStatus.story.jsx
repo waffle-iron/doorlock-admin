@@ -1,37 +1,23 @@
 import React from 'react';
 import LockStatus from './LockStatus';
-import { storiesOf, action, linkTo } from '@kadira/storybook';
+import { storiesOf } from '@kadira/storybook';
+import { action, decorateAction } from '@kadira/storybook-addon-actions'
+import containerWidth from '../../../.storybook/decorators/containerWidth';
+import { withKnobs, boolean, number } from '@kadira/storybook-addon-knobs';
+
+const firstArgAction = decorateAction([
+  (args) => args.slice(0, 1)
+]);
 
 storiesOf('LockStatus', module)
+  .addDecorator(containerWidth(500))
+  .addDecorator(withKnobs)
   .add('locked', () => {
     const props = {
-      isLocked: true,
-      isLoading: false,
-      lockBtnClick: linkTo('LockStatus', 'open')
-    }
-    return (<LockStatus {...props} />)
-  })
-  .add('open', () => {
-    const props = {
-      isLocked: false,
-      isLoading: false,
-      lockBtnClick: linkTo('LockStatus', 'locked')
-    }
-    return (<LockStatus {...props} />)
-  })
-  .add('waiting for btn ack', () => {
-    const props = {
-      isLocked: false,
-      isLoading: false,
-      lockBtnClick: linkTo('LockStatus', 'locked'),
-      lockBtnDisabled: true
-    }
-    return (<LockStatus {...props} />)
-  })
-  .add('loading', () => {
-    const props = {
-      isLocked: false,
-      isLoading: true
+      isLocked: boolean('isLocked', true),
+      isLoading: boolean('isLoading', false),
+      lockBtnClick: firstArgAction('lockBtnClick'),
+      lockBtnDisabled: boolean('lockBtnDisabled', false)
     }
     return (<LockStatus {...props} />)
   });
