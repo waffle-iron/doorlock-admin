@@ -4,6 +4,8 @@ import NavBar from './navbar/NavBar.jsx';
 import NotificationStack from './notifications/NotificationStack.jsx';
 import { Grid } from 'react-bootstrap';
 
+import '../styling/globalStyles.scss';
+
 export default class App extends Component {
   render() {
     const location = this.props.location.pathname;

@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 class NavBar extends React.Component {
   render () {
     return(
-      <Navbar inverse>
+      <Navbar inverse fixedTop>
          <Navbar.Header>
            <Navbar.Brand>
              <Link to='/lock-status'>Hackerspace UI</Link>

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-import styles from './MemberListItem-style.css';
+import styles from './MemberListItem-style.scss';
 
 const MemberListItem = ({name, onDelete, id}) => {
   return (

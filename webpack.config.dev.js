@@ -29,16 +29,19 @@ module.exports = {
   },
   module: {
     noParse: [ /socket.io-client/ ],
-    loaders: [{
-      test: /\.jsx?/,
-      loaders: ['babel'],
-      include: path.join(__dirname, 'src')
-    },
-    {
-  	  test: /\.css$/,
-  	  loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
-      }]
+    loaders: [
+      {
+        test: /\.jsx?/,
+        loaders: ['babel'],
+        include: path.join(__dirname, 'src')
+      },
+      {
+        test: /\.scss$/,
+        loaders: [
+          'style',
+          'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+          'sass']
+      }
+    ]
   }
 };
-// style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]
-// 'style-loader!css-loader'

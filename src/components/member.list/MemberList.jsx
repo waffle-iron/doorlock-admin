@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import MemberListItem from '../member.list.item/MemberListItem.jsx';
 import { ListGroup } from 'react-bootstrap';
 
-import styles from './MemberList-style.css';
+import styles from './MemberList-style.scss';
 
 class MemberList extends React.Component {
   constructor(props) {

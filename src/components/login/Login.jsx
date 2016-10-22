@@ -7,7 +7,7 @@ import { withRouter } from 'react-router';
 import auth from '../../utils/auth';
 import { authenticateLockSocket } from '../../actions/lockStatusActions';
 
-import styles from './Login-style.css';
+import styles from './Login-style.scss';
 
 const LoginForm = React.createClass({
     mixins: [FRC.ParentContextMixin],
