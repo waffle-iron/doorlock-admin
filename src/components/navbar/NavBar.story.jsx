@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar from './Navbar';
+import NavBar from './NavBar';
 import { storiesOf, action } from '@kadira/storybook';
 import CenterModule from '../.stories/CenterModule.jsx';
 
