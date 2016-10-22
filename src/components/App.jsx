@@ -9,14 +9,9 @@ import '../styling/globalStyles.scss';
 export default class App extends Component {
   render() {
     const location = this.props.location.pathname;
-    const loadingBarStyle = {
-      zIndex: 2,
-      backgroundColor: '#9c27b0',
-      height: 4
-    }
     return (
       <div>
-        <LoadingBar style={loadingBarStyle} />
+        <LoadingBar className='loadingBar' />
         { location !== '/logg-inn' ? <NavBar /> : '' }
         <Grid>
           {this.props.children}
