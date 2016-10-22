@@ -1,10 +1,15 @@
-import { configure } from '@kadira/storybook';
+import { configure, addDecorator } from '@kadira/storybook';
+import centerDecorator from './decorators/centerDecorator';
 
 import '!style!css!../static/css/paper.bootstrap.min.css';
 import '!style!css!../static/css/font-awesome.min.css';
 
+const req = require.context('../src/components', true, /.story.jsx?$/)
+
 function loadStories() {
-  require('../src/components/.stories/');
+  req.keys().forEach((filename) => req(filename))
 }
+
+addDecorator(centerDecorator)
 
 configure(loadStories, module);
