@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react';
-
-import MemberList from '../../components/member.list/MemberList.jsx';
+import ReusableInfiniteList from '../../components/reusable.infinite.list/ReusableInfiniteList.jsx';
+import MemberListItem from '../../components/member.list.item/MemberListItem.jsx';
 import { Row, Col, Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
-
 import { connect } from 'react-redux';
 import {
   loadMemberPageList,
@@ -11,12 +10,28 @@ import {
   deleteMember } from '../../actions/entitiesActions';
 
 class MemberListPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.renderMember = this.renderMember.bind(this);
+  }
   componentWillMount() {
     this.props.loadMemberPageList();
   }
   filterChange(inputField) {
     const filter = inputField.target.value
     this.props.filterMemberPageList({ firstName: filter })
+  }
+  renderMember(member, i) {
+    const {deleteMember} = this.props;
+    const memberName = `${member.firstName} ${member.lastName}`;
+    return (
+      <MemberListItem
+        key={i}
+        name={memberName}
+        id={member.id}
+        onDelete={deleteMember}
+      />
+    )
   }
   render () {
     const {
@@ -25,31 +40,24 @@ class MemberListPage extends React.Component {
       deleteMember,
       nextPageExists,
       loadMoreMembersOnPageList } = this.props;
+
     return (
       <Row>
         <fieldset>
           <legend>Filter</legend>
           <form >
-            <Col md={6}>
-              <FormControl
-                placeholder='Fornavn'
-                onChange={this.filterChange.bind(this)} />
-            </Col>
-            <Col md={6}>
-              <FormControl
-                placeholder='Etternavn'
-              />
-            </Col>
+            <FormControl
+              placeholder='Fornavn'
+              onChange={this.filterChange.bind(this)} />
           </form>
         </fieldset>
-        <MemberList
-          memberList={memberList}
+        <ReusableInfiniteList
+          list={memberList}
+          renderItem={this.renderMember}
           isLoading={isLoading}
-          deleteMember={deleteMember}
-          />
-        { nextPageExists ?
-          <Button onClick={loadMoreMembersOnPageList}>Load more</Button>
-          : '' }
+          moreExist={nextPageExists}
+          loadMore={loadMoreMembersOnPageList}
+        />
       </Row>
     );
   }
