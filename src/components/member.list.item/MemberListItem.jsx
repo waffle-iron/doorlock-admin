@@ -10,7 +10,12 @@ const MemberListItem = ({name, onDelete, id}) => {
           <p><strong>{name}</strong></p>
         </div>
         <div className={styles.btnCol}>
-          <button className={styles.btn} onClick={onDelete}>
+          <button
+            className={styles.btn}
+            onClick={(e) => {
+              e.preventDefault();
+              onDelete(id);
+            }}>
             <i className='fa fa-trash fa-2x' title='Slett medlem' />
           </button>
         </div>

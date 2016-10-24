@@ -8,15 +8,9 @@ class MemberList extends React.Component {
   constructor(props) {
     super(props);
     this.renderMembers = this.renderMembers.bind(this);
-    this.deleteMember = this.deleteMember.bind(this);
-  }
-  deleteMember(id, e) {
-    const { deleteMember } = this.props;
-    e.preventDefault();
-    deleteMember(id);
   }
   renderMembers() {
-    const { memberList } = this.props;
+    const { memberList, deleteMember } = this.props;
 
     return memberList.map( (member, i) => {
       const memberName = `${member.firstName} ${member.lastName}`;
@@ -25,7 +19,7 @@ class MemberList extends React.Component {
           key={i}
           name={memberName}
           id={member.id}
-          onDelete={this.deleteMember.bind(null, member.id)}
+          onDelete={deleteMember}
         />
       );
     });
