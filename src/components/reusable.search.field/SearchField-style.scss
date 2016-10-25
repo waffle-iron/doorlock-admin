@@ -1,0 +1,16 @@
+.container {
+  position: relative;
+  > input {
+    height: 32px;
+    line-height: 32px;
+    outline: none;
+    border: 1px solid #CCC;
+    padding: 5px 3px 3px 35px;
+  }
+  > :global(.glyphicon) {
+    pointer-events: none;
+    position: absolute;
+    padding: 9.4px;
+    left: 3px;
+  }
+}
