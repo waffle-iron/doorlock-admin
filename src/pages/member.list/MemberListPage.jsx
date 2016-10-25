@@ -26,7 +26,7 @@ class MemberListPage extends React.Component {
     const memberName = `${member.firstName} ${member.lastName}`;
     return (
       <MemberListItem
-        key={i}
+        key={member.id}
         name={memberName}
         id={member.id}
         onDelete={deleteMember}
