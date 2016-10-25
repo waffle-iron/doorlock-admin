@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { ListGroup } from 'react-bootstrap';
 import Waypoint from 'react-waypoint';
+import transitions from './ListCssTransitions.scss';
 
 class ReusableInfiniteList extends React.Component {
   renderWaypoint(isLoading, loadMore, moreExist) {
@@ -19,7 +21,12 @@ class ReusableInfiniteList extends React.Component {
     const {list, renderItem, isLoading, loadMore, moreExist} = this.props;
     return (
       <ListGroup componentClass='div'>
-        {list.map(renderItem)}
+        <ReactCSSTransitionGroup
+          transitionName={{...transitions}}
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300} >
+          {list.map(renderItem)}
+        </ReactCSSTransitionGroup>
         {this.renderWaypoint(isLoading, loadMore, moreExist)}
       </ListGroup>
     )

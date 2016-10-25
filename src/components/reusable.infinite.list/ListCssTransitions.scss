@@ -1,0 +1,18 @@
+.enter {
+  opacity: 0.01;
+}
+
+.enterActive {
+  opacity: 1;
+  transition: opacity 200ms ease-in;
+}
+
+.leave {
+  opacity: 1;
+}
+
+.leaveActive {
+  opacity: 0.01;
+  transform: rotateX(100%);
+  transition: opacity 200ms ease-in, transform 200ms ease-in;
+}
