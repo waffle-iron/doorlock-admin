@@ -1,11 +1,10 @@
 import React, { PropTypes } from 'react';
 import ReusableInfiniteList from '../../components/reusable.infinite.list/ReusableInfiniteList.jsx';
 import MemberListItem from '../../components/member.list.item/MemberListItem.jsx';
-import { Row, Col, Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import {
   loadMemberPageList,
-  filterMemberPageList,
   loadMoreMembersOnPageList,
   deleteMember } from '../../actions/entitiesActions';
 
@@ -16,10 +15,6 @@ class MemberListPage extends React.Component {
   }
   componentWillMount() {
     this.props.loadMemberPageList();
-  }
-  filterChange(inputField) {
-    const filter = inputField.target.value
-    this.props.filterMemberPageList({ firstName: filter })
   }
   renderMember(member, i) {
     const {deleteMember} = this.props;
@@ -43,14 +38,6 @@ class MemberListPage extends React.Component {
 
     return (
       <Row>
-        <fieldset>
-          <legend>Filter</legend>
-          <form >
-            <FormControl
-              placeholder='Fornavn'
-              onChange={this.filterChange.bind(this)} />
-          </form>
-        </fieldset>
         <ReusableInfiniteList
           list={memberList}
           renderItem={this.renderMember}
@@ -79,7 +66,6 @@ const MemberPage = connect(
   mapStateToProps,
   {
     loadMemberPageList,
-    filterMemberPageList,
     loadMoreMembersOnPageList,
     deleteMember
   }
