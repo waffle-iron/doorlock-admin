@@ -43,35 +43,36 @@ const lockControl = ({ dispatch }) => {
   socket.on('connect', () => {
     dispatch(setLockSocketStatus('connected'));
 
-    // Confirmation of authentication event from server
-    socket.on('authenticated', () => {
-      dispatch(setLockAuthStatus(true));
-
-      socket.on('logTail', (log) => {
-        dispatch(newLockLogData(log));
-      });
-      socket.on('lockStatus', ({isLocked}) => {
-        dispatch(lockStateUpdate(isLocked));
-      });
-
-    });
-
     // Initial authentication attempt if localStorage is present
     if ( localStorage.token ) {
       socket.emit('authenticate', { token: localStorage.token });
     }
 
-    // Socket error handling
-    socket.on('unauthorized', (err) => {
-      dispatch(setLockAuthStatus(false));
+  });
 
-      if (err.message === 'jwt expired' && err.data.code == 'invalid_token') {
-        dispatch(lockSocketTokenError(401,'/lock-status'))
-      }
-      else {
-        dispatch(lockSocketTokenError(403,'/lock-status'))
-      }
-    });
+  // Confirmation of authentication event from server
+  socket.on('authenticated', () => {
+    dispatch(setLockAuthStatus(true));
+  });
+
+  socket.on('logTail', (log) => {
+    dispatch(newLockLogData(log));
+  });
+
+  socket.on('lockStatus', ({isLocked}) => {
+    dispatch(lockStateUpdate(isLocked));
+  });
+
+  // Socket error handling
+  socket.on('unauthorized', (err) => {
+    dispatch(setLockAuthStatus(false));
+
+    if (err.message === 'jwt expired' && err.data.code == 'invalid_token') {
+      dispatch(lockSocketTokenError(401,'/lock-status'))
+    }
+    else {
+      dispatch(lockSocketTokenError(403,'/lock-status'))
+    }
   });
 
   socket.on('connect_error', () => {
