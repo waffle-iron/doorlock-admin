@@ -12,9 +12,9 @@ export default class App extends Component {
     return (
       <div>
         <LoadingBar className='loadingBar' />
-        { location !== '/logg-inn' ? <NavBar /> : '' }
+        { location !== '/logg-inn' && <NavBar searchField={this.props.search} /> }
         <Grid>
-          {this.props.children}
+          {this.props.main}
         </Grid>
         <NotificationStack />
       </div>
