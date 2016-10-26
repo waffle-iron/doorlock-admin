@@ -26,7 +26,11 @@ const pagination = combineReducers({
       MEMBERS.FAILURE,
       MEMBER.CREATE_SUCCESS,
       MEMBER.DELETE_SUCCESS
-    ]
+    ],
+    perPage: 20,
+    defaultFilter: {
+      orderBy: 'firstName'
+    }
   })
 })
 
