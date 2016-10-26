@@ -17,7 +17,13 @@ let socket = null;
 export const lockMiddleware = ({ getState, dispatch }) => (next) => (action) => {
   const result = next(action);
   if( socket && action.type == LOCK_SOCKET_AUTHENTICATE ) {
-    socket.emit('authenticate', { token: action.token });
+    if(socket.connected) {
+      socket.emit('authenticate', { token: action.token });
+    }
+    else {
+      // Will first reconnect and then try to authenticate with token from localStorage.
+      socket.io.connect();
+    }
   }
   if( socket && getState().lockStatus.isAuthenticated ) {
     if(action.type === LOCK_FORCE_OPEN) {
