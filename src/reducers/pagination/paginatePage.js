@@ -6,7 +6,7 @@ import union from 'lodash/union';
 
 // Creates a reducer managing pagination, given the action types to handle,
 // and a function telling how to extract the key from an action.
-export default function paginatePage({ types, perPage = 10 }) {
+export default function paginatePage({ types, perPage = 10, defaultFilter = {} }) {
   if (!Array.isArray(types) || types.length !== 6) {
     throw new Error('Expected types to be an array of six elements.');
   }
@@ -28,7 +28,7 @@ export default function paginatePage({ types, perPage = 10 }) {
     limit: perPage,
     nextPageExists: true,
     nextPageOffset: 0,
-    filter: {},
+    filter: defaultFilter,
     ids: [],
     isLoading: false,
   }, action) => {
@@ -44,7 +44,10 @@ export default function paginatePage({ types, perPage = 10 }) {
           pageCount: 0,
           nextPageExists: true,
           nextPageOffset: 0,
-          filter: action.filter,
+          filter: {
+            ...state.filter,
+            ...action.filter
+          },
           ids: []
         }
       case successType:
