@@ -64,7 +64,8 @@ export default function paginatePage({ types, perPage = 10, defaultFilter = {} }
         })
       case failureType:
         return merge({}, state, {
-          isLoading: false
+          isLoading: false,
+          nextPageExists: false
         })
       case createItemSuccessType:
         return {
