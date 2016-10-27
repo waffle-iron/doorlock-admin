@@ -33,7 +33,7 @@ class MemberListPage extends React.Component {
       memberList,
       isLoading,
       deleteMember,
-      nextPageExists,
+      moreExists,
       loadMoreMembersOnPageList } = this.props;
 
     return (
@@ -42,7 +42,7 @@ class MemberListPage extends React.Component {
           list={memberList}
           renderItem={this.renderMember}
           isLoading={isLoading}
-          moreExist={nextPageExists}
+          moreExist={moreExists}
           loadMore={loadMoreMembersOnPageList}
         />
       </Row>
@@ -58,7 +58,7 @@ const mapStateToProps = (state) => {
   return {
     memberList,
     isLoading: memberPagination.isLoading,
-    nextPageExists: memberPagination.nextPageExists
+    moreExists: memberPagination.nextPageExists && !!memberPagination.pageCount
   }
 }
 
