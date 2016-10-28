@@ -28,7 +28,7 @@ export default () => (
   <Router history={browserHistory}>
     <Route path='/' component={App}>
       <IndexRedirect to="/lock-status" />
-      <Route path='/logg-inn' components={{ main: Login }} />
+      <Route path='/logg-inn' components={{ login: Login }} />
 	    <Route path='/lock-status' components={{ main: LockStatus }} onEnter={requireAuth} />
       <Route path='/medlem/liste' components={{ main: MedlemsListe, search: SearchMemberNames }} onEnter={requireAuth} />
       <Route path='/medlem/legg-til' components={{ main: LeggTilMedlem }} onEnter={requireAuth} />
