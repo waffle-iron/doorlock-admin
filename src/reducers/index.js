@@ -34,7 +34,7 @@ const pagination = combineReducers({
   })
 })
 
-const app = combineReducers({
+const rootReducer = combineReducers({
   entities,
   entityDontExist,
   pagination,
@@ -45,4 +45,4 @@ const app = combineReducers({
   loadingBar: loadingBarReducer,
 });
 
-export default app;
+export default rootReducer;
