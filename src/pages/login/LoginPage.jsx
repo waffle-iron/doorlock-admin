@@ -7,7 +7,7 @@ import { SubmissionError } from 'redux-form';
 import { authenticateLockSocket } from '../../actions/lockStatusActions';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
-import styles from './LoginPage-style.scss';
+import styles from './LoginPage-style.css';
 
 class LoginPage extends React.Component {
   componentWillMount() {

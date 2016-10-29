@@ -29,7 +29,7 @@ module.exports = {
         warnings: false
       }
     }),
-    new ExtractTextPlugin('../css/[name].css')
+    new ExtractTextPlugin('../css/main.css')
   ],
   resolve: {
     alias: {
@@ -46,16 +46,13 @@ module.exports = {
         include: path.join(__dirname, 'src')
       },
       {
-        test: /\.scss$/,
+        test: /\.css$/,
         loader: ExtractTextPlugin.extract(
           'style',
-          'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-          'sass'
-        )
+          'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+        ),
+        include: path.join(__dirname, 'src')
       }
     ]
-  },
-  sassLoader: {
-    outputStyle: 'compressed'
   }
 };

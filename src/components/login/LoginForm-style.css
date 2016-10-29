@@ -1,0 +1,23 @@
+.box {
+  width: 50%;
+  min-width: 300px;
+
+}
+
+.legend {
+  margin-bottom: 10px;
+}
+
+.errorTxt {
+  margin-top: 10px;
+  text-align: center;
+  color: #ee3838;
+}
+
+.content {
+  padding: 0 5px;
+}
+
+.submitBtn {
+  margin-top: 15px;
+}

@@ -4,13 +4,13 @@ import NavBar from './navbar/NavBar.jsx';
 import NotificationStack from './notifications/NotificationStack.jsx';
 import { Grid } from 'react-bootstrap';
 
-import '../styling/globalStyles.scss';
+import '../styling/globalStyles.css';
 
 const App = ({ login, main, search }) => (
   <div>
     <LoadingBar className='loadingBar' />
     { login ? login
-      : <Grid id='main'><NavBar searchField={search} />{main}</Grid> }
+      : <Grid className='main'><NavBar searchField={search} />{main}</Grid> }
     <NotificationStack />
   </div>
 )

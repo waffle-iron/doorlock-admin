@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Button, FormGroup, FormControl, HelpBlock } from 'react-bootstrap';
 
-import styles from './LoginForm-style.scss';
+import styles from './LoginForm-style.css';
 
 
 const LoginField = ({ input, placeholder, type, meta }) => {
@@ -39,7 +39,7 @@ const LoginForm = ({ handleSubmit, submitting, pristine, error }) => (
   <div className={styles.box}>
     <form onSubmit={handleSubmit}>
       <fieldset>
-        <legend>Hackerspace UI</legend>
+        <legend className={styles.legend}>Hackerspace UI</legend>
         <div className={styles.content}>
           <Field
             name='username'
@@ -59,12 +59,13 @@ const LoginForm = ({ handleSubmit, submitting, pristine, error }) => (
             type='submit'
             disabled={submitting || pristine}
             bsStyle='primary'
+            className={styles.submitBtn}
             block
             >Logg inn</Button>
         </div>
       </fieldset>
     </form>
-    { error && <p>{error}</p> }
+    { error && <p className={styles.errorTxt}>{error}</p> }
   </div>
 )
 

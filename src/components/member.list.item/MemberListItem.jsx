@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-import styles from './MemberListItem-style.scss';
+import styles from './MemberListItem-style.css';
 
 const MemberListItem = ({name, onDelete, id}) => {
   return (
       <Link to={'/medlem/endre/'+id} className={'list-group-item '+ styles.memberItemBox}>
         <div className={styles.txtCol}>
-          <p><strong>{name}</strong></p>
+          <p className={styles.nameText}>{name}</p>
         </div>
         <div className={styles.btnCol}>
           <button

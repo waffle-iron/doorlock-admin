@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Panel } from 'react-bootstrap';
 
-import styles from './LockLogStream-style.scss';
+import styles from './LockLogStream-style.css';
 
 class LockLogStream extends React.Component {
   componentWillUpdate(nextProps, nextState) {

@@ -9,9 +9,11 @@
   flex-flow: column nowrap;
   justify-content: center;
   font-size: 1.5rem;
-  &>p {
-    margin: 0;
-  }
+}
+
+.nameText {
+  font-weight: bold;
+  margin: 0;
 }
 
 .btnCol {

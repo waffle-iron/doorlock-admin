@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { ListGroup } from 'react-bootstrap';
 import Waypoint from 'react-waypoint';
-import transitions from './ListCssTransitions.scss';
+import transitions from './ListCssTransitions.css';
 
 class ReusableInfiniteList extends React.Component {
   renderWaypoint(isLoading, loadMore, moreExist) {

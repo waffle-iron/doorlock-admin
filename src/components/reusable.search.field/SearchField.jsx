@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import styles from './SearchField-style.scss'
+import styles from './SearchField-style.css'
 import { Glyphicon } from 'react-bootstrap'
 
 const SearchField = ({ startValue, placeholder, onChange }) => (
