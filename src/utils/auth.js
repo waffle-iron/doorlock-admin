@@ -4,11 +4,7 @@ import api from './api';
 
 module.exports = {
   login(loginObj, callback) {
-    if( localStorage.token ) {
-      if(callback) callback(true);
-      this.onChange(true);
-      return;
-    }
+    
     axios.post(apiBaseUrl+'/authenticate', loginObj)
     .then( (response) => {
       if( response.data.success ) {
@@ -26,6 +22,7 @@ module.exports = {
       if(callback) callback(msg);
       this.onChange(false);
     });
+
   },
   getToken() {
     return localStorage.token;
