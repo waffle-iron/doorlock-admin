@@ -1,0 +1,32 @@
+body {
+  margin: 0;
+  min-width: 300px;
+}
+
+.base {
+  padding-top: 15px;
+}
+
+.withoutSearch {
+  composes: base;
+  margin-top: 64px;
+}
+
+.withSearch {
+  composes: base;
+  margin-top: 106px;
+}
+
+@media only screen and (min-width: 480px) {
+  .withSearch {
+    margin-top: 64px;
+  }
+}
+
+.loadingBar {
+  z-index: 1032;
+  position: fixed;
+  top: 0;
+  height: 4px;
+  background-color: #9c27b0;
+}
