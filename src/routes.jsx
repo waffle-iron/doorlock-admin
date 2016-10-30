@@ -3,7 +3,7 @@ import { Router, Route, IndexRedirect, browserHistory } from 'react-router';
 
 import auth from './utils/auth';
 
-import App from './components/App.jsx';
+import App from './components/app/App.jsx';
 import Login from './pages/login/LoginPage.jsx';
 import NotFound from './pages/notfound/NotFoundPage.jsx';
 
