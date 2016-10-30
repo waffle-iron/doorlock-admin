@@ -4,7 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router';
 
 const NavBar = ({searchField}) => (
-  <Navbar inverse fixedTop>
+  <Navbar inverse fixedTop collapseOnSelect>
     <Navbar.Header>
       <Navbar.Brand>
         <Link to='/lock-status'>Hackerspace UI</Link>

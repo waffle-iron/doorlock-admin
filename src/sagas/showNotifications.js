@@ -27,6 +27,13 @@ function* showNotification(action) {
       }));
       break;
 
+    case MEMBER.EDIT_SUCCESS:
+      yield put( addNotification.success({
+        title: 'Endre medlem',
+        message: `Medlemmet ble endret.`
+      }));
+      break;
+
     case MEMBER.DELETE_SUCCESS:
       const { firstName, lastName } = yield select((state,id) => state.entities.users[id], action.deleteId)
       yield put( addNotification.success({
@@ -63,6 +70,7 @@ function* showNotification(action) {
 const actions = [
   MEMBERS.FAILURE,
   MEMBER.CREATE_SUCCESS,
+  MEMBER.EDIT_SUCCESS,
   MEMBER.DELETE_SUCCESS,
   MEMBER.DELETE_FAILURE,
   SCAN_ID_CARD_ERROR
