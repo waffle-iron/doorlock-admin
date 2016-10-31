@@ -16,11 +16,10 @@ module.exports = {
     noParse: [ /socket.io-client/ ],
     loaders: [
       {
-        test: /\.scss$/,
+        test: /\.css$/,
         loaders: [
           'style',
-          'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-          'sass']
+          'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]']
       },
       { test: /\.woff(2)?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
       { test: /\.(ttf|eot|svg)?$/, loader: 'file-loader' }
