@@ -24,12 +24,12 @@ export const singleAsyncActions = (asyncActionTypes) => {
     create: {
       request: () => action(asyncActionTypes.CREATE_REQUEST),
       success: (response) => action(asyncActionTypes.CREATE_SUCCESS, {response}),
-      failure: (error) => action(asyncActionTypes.CREATE_FAILURE, {error}),
+      failure: (error, formId) => action(asyncActionTypes.CREATE_FAILURE, {error, formId}),
     },
     edit: {
       request: () => action(asyncActionTypes.EDIT_REQUEST),
       success: (response) => action(asyncActionTypes.EDIT_SUCCESS, {response}),
-      failure: (error) => action(asyncActionTypes.EDIT_FAILURE, {error}),
+      failure: (error, formId) => action(asyncActionTypes.EDIT_FAILURE, {error, formId}),
     },
     delete: {
       request: () => action(asyncActionTypes.DELETE_REQUEST),

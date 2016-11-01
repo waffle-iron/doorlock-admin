@@ -31,8 +31,7 @@ function* createEntity(entity, apiFn, formId, newEntity) {
     yield put( stopSubmit(formId) )
   }
   else {
-    yield put( entity.failure(error) )
-    yield put( stopSubmit(formId) )
+    yield put( entity.failure(error, formId) )
   }
 }
 
@@ -59,11 +58,11 @@ function* editEntity(entity, apiFn, formId, mutId, mutatedEntity) {
   const {response, error} = yield call(apiFn, mutId, mutatedEntity)
   if(response) {
     yield put( entity.success(response) )
+    yield put( stopSubmit(formId) )
   }
   else {
-    yield put( entity.failure(error) )
+    yield put( entity.failure(error, formId) )
   }
-  yield put( stopSubmit(formId) )
 }
 
 const pageService = {
