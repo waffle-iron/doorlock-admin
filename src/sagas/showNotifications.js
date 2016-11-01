@@ -27,11 +27,29 @@ function* showNotification(action) {
       }));
       break;
 
+    case MEMBER.CREATE_FAILURE:
+      if(!action.error.hasOwnProperty('data')) {
+        yield put( addNotification.error({
+          title: 'Legg til medlem',
+          message: 'Feil på serveren forhindret medlemmet å bli lagt til.'
+        }));
+      }
+      break;
+
     case MEMBER.EDIT_SUCCESS:
       yield put( addNotification.success({
         title: 'Endre medlem',
         message: `Medlemmet ble endret.`
       }));
+      break;
+
+    case MEMBER.EDIT_FAILURE:
+      if(!action.error.hasOwnProperty('data')) {
+        yield put( addNotification.error({
+          title: 'Endre medlem',
+          message: 'Feil på serveren forhindret medlemmet å bli endret.'
+        }));
+      }
       break;
 
     case MEMBER.DELETE_SUCCESS:
@@ -70,7 +88,9 @@ function* showNotification(action) {
 const actions = [
   MEMBERS.FAILURE,
   MEMBER.CREATE_SUCCESS,
+  MEMBER.CREATE_FAILURE,
   MEMBER.EDIT_SUCCESS,
+  MEMBER.EDIT_FAILURE,
   MEMBER.DELETE_SUCCESS,
   MEMBER.DELETE_FAILURE,
   SCAN_ID_CARD_ERROR
