@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/fredeil/doorlock-admin.png?label=ready&title=Ready)](https://waffle.io/fredeil/doorlock-admin?utm_source=badge)
 # Doorlock admin
 
 Admin user interface for managing members allowed to unlock hackerspace cabinet.
